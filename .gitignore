@@ -2,5 +2,7 @@
 _site
 *un~
 .DS_Store
-*swp
 *pyc
+*swp
+*log
+famoso_reports.egg-info
