@@ -1,8 +1,8 @@
 .sass-cache
 _site
-*un~
 .DS_Store
+*un~
 *pyc
 *swp
 *log
-famoso_reports.egg-info
+*pid

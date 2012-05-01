@@ -4,5 +4,6 @@
 </head>
 <body>
 <h1>up and online!</h1>
+<div><img src="/static/logo.jpg" alt="logo" /></div>
 <body>
 </html>
