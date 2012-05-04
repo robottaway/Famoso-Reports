@@ -1,22 +1,11 @@
 Chameleon==2.8.4
-GnuPGInterface==0.3.2
-Landscape-Client==11.07.1.1
 Mako==0.7.0
 MarkupSafe==0.15
-PAM==0.4.2
 PasteDeploy==1.5.0
 Pygments==1.5
 SQLAlchemy==0.7.6
-Twisted-Core==11.0.0
 WebOb==1.2b3
-apt-xapian-index==0.44
-chardet==2.0.1
-command-not-found==0.2.44
 distribute==0.6.19
--e git+git@github.com:robottaway/Famoso-Reports.git@c5cefc63e394c29ccef6f19b86ebae9a194d386f#egg=famoso_reports-dev
-httplib2==0.7.1
-keyring==0.6.2
-launchpadlib==1.9.8
 lazr.restfulclient==0.11.2
 lazr.uri==1.0.2
 oauth==1.0.1
@@ -29,14 +18,11 @@ pyramid==1.3
 pyramid-debugtoolbar==1.0.2
 pyramid-tm==0.4
 pyserial==2.5
-python-apt==0.8.0ubuntu9
-python-debian==0.1.20ubuntu2
 repoze.lru==0.5
 simplejson==2.1.6
 smart==1.4
 transaction==1.2.0
 translationstring==1.1
-ufw==0.30.1-2ubuntu1
 venusian==1.0a6
 virtualenv==1.6.4
 virtualenvwrapper==3.2

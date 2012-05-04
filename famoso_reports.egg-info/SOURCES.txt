@@ -3,6 +3,7 @@ MANIFEST.in
 README.txt
 development.ini
 production.ini
+requirements.txt
 setup.cfg
 setup.py
 famoso_reports/__init__.py
@@ -22,6 +23,7 @@ famoso_reports/static/favicon.ico
 famoso_reports/static/footerbg.png
 famoso_reports/static/headerbg.png
 famoso_reports/static/ie6.css
+famoso_reports/static/logo.jpg
 famoso_reports/static/middlebg.png
 famoso_reports/static/pylons.css
 famoso_reports/static/pyramid-small.png

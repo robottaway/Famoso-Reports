@@ -3,18 +3,35 @@ from pyramid.view import view_config
 
 from sqlalchemy.exc import DBAPIError
 
+from pyramid_mailer import get_mailer
+from pyramid_mailer.message import Message
+
 from .models import (
     DBSession,
     MyModel,
     )
 
+@view_config(route_name='signin', renderer='signin.mak')
+def signin(request):
+    return {}
+
 @view_config(route_name='home', renderer='test.mak')
 def my_view(request):
+    request.session['abc'] = 'hi'
     try:
         one = DBSession.query(MyModel).filter(MyModel.name=='one').first()
     except DBAPIError:
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
     return {'one':one, 'project':'famoso_reports'}
+
+@view_config(route_name='emailtest', renderer='string')
+def emailtest(request):
+    mailer = get_mailer(request)
+    message = Message(subject='famoso test', sender='robottaway@localhost',
+                    recipients=['robottaway@gmail.com'],
+                    body='Hi this is a test')
+    mailer.send(message)
+    return 'yup'
 
 conn_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
