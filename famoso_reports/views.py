@@ -1,5 +1,5 @@
-from pyramid.response import Response
 from pyramid.view import view_config
+from pyramid.httpexceptions import HTTPFound
 
 from sqlalchemy.exc import DBAPIError
 
@@ -8,21 +8,48 @@ from pyramid_mailer.message import Message
 
 from .models import (
     DBSession,
-    MyModel,
+    User,
     )
 
 @view_config(route_name='signin', renderer='signin.mak')
 def signin(request):
     return {}
 
+@view_config(route_name='auth', renderer=None)
+def auth(request):
+    username = request.params.get('username', None)
+    password = request.params.get('password', None)
+    if not username or not password:
+        request.session.flash('Please enter username and password')
+        return HTTPFound(location=request.route_path('signin'))
+    try:
+        user = DBSession.query(User).filter(User.username==username).first()
+    except DBAPIError:
+        request.session.flash('Authentication error, please contact support.')
+        return HTTPFound(location=request.route_path('signin'))
+    if not user or not user.verify(password):
+        request.session.flash("Your username or password is incorrect")
+        return HTTPFound(location=request.route_path('signin'))
+    request.session['userid'] = user.id
+    return HTTPFound(location=request.route_path('home'))
+
+@view_config(route_name='deauth', renderer=None)
+def deauth(request):
+    del request.session['userid']
+    return HTTPFound(location=request.route_path('home'))
+
+@view_config(route_name='user', renderer='user.mak')
+def user(context, request):
+    return {}
+
 @view_config(route_name='home', renderer='test.mak')
 def my_view(request):
-    request.session['abc'] = 'hi'
-    try:
-        one = DBSession.query(MyModel).filter(MyModel.name=='one').first()
-    except DBAPIError:
-        return Response(conn_err_msg, content_type='text/plain', status_int=500)
-    return {'one':one, 'project':'famoso_reports'}
+    print request.user
+#    try:
+#        one = DBSession.query(MyModel).filter(MyModel.name=='one').first()
+#    except DBAPIError:
+#        return Response(conn_err_msg, content_type='text/plain', status_int=500)
+    return {'project':'famoso_reports'}
 
 @view_config(route_name='emailtest', renderer='string')
 def emailtest(request):
@@ -32,20 +59,4 @@ def emailtest(request):
                     body='Hi this is a test')
     mailer.send(message)
     return 'yup'
-
-conn_err_msg = """\
-Pyramid is having a problem using your SQL database.  The problem
-might be caused by one of the following things:
-
-1.  You may need to run the "initialize_famoso_reports_db" script
-    to initialize your database tables.  Check your virtual 
-    environment's "bin" directory for this script and try to run it.
-
-2.  Your database server may not be running.  Check that the
-    database server referred to by the "sqlalchemy.url" setting in
-    your "development.ini" file is running.
-
-After you fix the problem, please restart the Pyramid application to
-try it again.
-"""
 

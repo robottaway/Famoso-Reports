@@ -11,6 +11,11 @@
 <div id="container">
 
 <div id="header">
+% if request.user:
+	<div><a href="/deauth">Logout</a></div>
+% else:
+	<div><a href="/signin">Sign In</a></div>
+% endif
 	<div><img id="logo" src="/static/images/logo.jpg" alt="logo" /></div>
 </div>
 

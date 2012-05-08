@@ -6,9 +6,8 @@ from sqlalchemy import (
     Integer,
     Unicode
     )
-
+from sqlalchemy.exc import DBAPIError
 from sqlalchemy.ext.declarative import declarative_base
-
 from sqlalchemy.orm import (
     scoped_session,
     sessionmaker,
@@ -49,3 +48,20 @@ class User(Base):
             return True
         else:
             return False
+
+    def __str__(self):
+        return "<User username: '%s', email: '%s'>" % (self.username, self.email)
+
+def UserFactory(request):
+    """Provide the User model as context, or None if not found"""
+
+    username = request.matchdict.get('username', None)
+    try:
+        user = DBSession.query(User).filter(User.username==username).first()
+        if not user:
+            return None
+        user.__name__ = 'user'
+        user.__parent__ = None
+    except DBAPIError:
+        return None
+    return user
