@@ -1,12 +1,15 @@
 from pyramid_beaker import session_factory_from_settings
 from pyramid.config import Configurator
+from pyramid.authorization import ACLAuthorizationPolicy
 
 from sqlalchemy import engine_from_config
 
 from .models import (
     DBSession,
     User,
+    Root,
     )
+from famoso_reports.security import FamosoAuthenticationPolicy
 
 def get_user(request):
     # the below line is just an example, use your own method of
@@ -25,7 +28,12 @@ def main(global_config, **settings):
     """
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
-    config = Configurator(settings=settings)
+    config = Configurator(
+                root_factory=Root,
+                settings=settings,
+                authentication_policy=FamosoAuthenticationPolicy(),
+                authorization_policy=ACLAuthorizationPolicy(),
+    )
 
     session_factory = session_factory_from_settings(settings)
     config.set_session_factory(session_factory)
@@ -40,7 +48,8 @@ def main(global_config, **settings):
     config.add_route('auth', '/auth')
     config.add_route('deauth', '/deauth')
     config.add_route('user', '/user/{username}', factory='famoso_reports.models.UserFactory')
+    config.add_route('reportgroup', '/reportgroup/{name}', factory='famoso_reports.models.ReportGroupFactory')
 
-    config.scan()
+    config.scan('famoso_reports.views')
     return config.make_wsgi_app()
 

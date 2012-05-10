@@ -11,11 +11,13 @@ from .models import (
     User,
     )
 
-@view_config(route_name='signin', renderer='signin.mak')
+@view_config(route_name='signin', renderer='signin.mak', permission='read')
 def signin(request):
+    if request.user:
+        return HTTPFound(location=request.route_path('home'))
     return {}
 
-@view_config(route_name='auth', renderer=None)
+@view_config(route_name='auth', renderer=None, permission='read')
 def auth(request):
     username = request.params.get('username', None)
     password = request.params.get('password', None)
@@ -38,18 +40,20 @@ def deauth(request):
     del request.session['userid']
     return HTTPFound(location=request.route_path('home'))
 
-@view_config(route_name='user', renderer='user.mak')
+@view_config(route_name='user', renderer='user.mak', permission='read')
 def user(context, request):
+    if context is None:
+        print "no user found"
     return {}
 
-@view_config(route_name='home', renderer='test.mak')
-def my_view(request):
+@view_config(route_name='home', renderer='test.mak', permission='read')
+def home(context, request):
     print request.user
-#    try:
-#        one = DBSession.query(MyModel).filter(MyModel.name=='one').first()
-#    except DBAPIError:
-#        return Response(conn_err_msg, content_type='text/plain', status_int=500)
-    return {'project':'famoso_reports'}
+    return {}
+
+@view_config(route_name='reportgroup', renderer='reportgroup.mak', permission='read')
+def reportgroup(context, request):
+    return {}
 
 @view_config(route_name='emailtest', renderer='string')
 def emailtest(request):
