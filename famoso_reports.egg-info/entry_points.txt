@@ -2,4 +2,5 @@
       main = famoso_reports:main
       [console_scripts]
       initialize_famoso_reports_db = famoso_reports.scripts.initializedb:main
+      process_new_reports = famoso_reports.scripts.process_new_reports:main
       

@@ -53,7 +53,7 @@ def home(context, request):
 
 @view_config(route_name='reportgroup', renderer='reportgroup.mak', permission='read')
 def reportgroup(context, request):
-    return {}
+    return {'reportgroup':context}
 
 @view_config(route_name='emailtest', renderer='string')
 def emailtest(request):

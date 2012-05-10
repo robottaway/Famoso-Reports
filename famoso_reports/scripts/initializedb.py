@@ -13,7 +13,6 @@ from ..models import (
     DBSession,
     User,
     Base,
-    ReportGroup,
     )
 
 def usage(argv):
@@ -34,14 +33,9 @@ def main(argv=sys.argv):
     Base.metadata.create_all(engine)
 
     with transaction.manager:
-            user = DBSession.query(User).filter_by(username=u'robottaway').first()
-            if not user:
-                user = User(username=u'robottaway', password=u'blahblah', 
-                            email=u'robottaway@gmail.com', admin=True,
-                            first_name='Rob', last_name='Ottaway')
-                DBSession.add(user)
-            group = DBSession.query(ReportGroup).filter_by(name=u'testgroup1').first()
-            if not group:
-                group = ReportGroup(name='testgroup1')
-                group.users.append(user)
-                DBSession.add(group)
+        user = DBSession.query(User).filter_by(username=u'robottaway').first()
+        if not user:
+            user = User(username=u'robottaway', password=u'blahblah', 
+                        email=u'robottaway@gmail.com', admin=True,
+                        first_name=u'Rob', last_name=u'Ottaway')
+            DBSession.add(user)

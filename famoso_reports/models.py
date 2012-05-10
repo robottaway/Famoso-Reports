@@ -7,6 +7,7 @@ from pyramid.security import Everyone
 from sqlalchemy import (
     Column,
     Integer,
+    String,
     Unicode,
     Boolean,
     Table,
@@ -49,7 +50,7 @@ class User(Base):
     __tablename__ = 'appusers'
     id = Column(Integer, primary_key=True)
     username = Column(Unicode(20), unique=True, nullable=False)
-    password = Column(Unicode(80), nullable=False)
+    password = Column(String(80), nullable=False)
     first_name = Column(Unicode(64), nullable=False)
     last_name = Column(Unicode(64), nullable=False)
     email = Column(Unicode(256), unique=True, nullable=False)
@@ -123,6 +124,12 @@ class ReportGroup(Base):
     
     def __init__(self, name=None): 
         self.name = name
+
+    def findReportNamed(self, name):
+        for report in self.reports:
+            if report.name == name:
+                return report
+        return None
 
 def ReportGroupFactory(request):
     name = request.matchdict.get('name', None)

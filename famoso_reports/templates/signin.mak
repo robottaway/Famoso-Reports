@@ -13,3 +13,5 @@
 		</ul>
 	</fieldset>
 </form>
+
+<%inherit file="layout.mak" />
