@@ -48,7 +48,9 @@ def main(global_config, **settings):
     config.add_route('auth', '/auth')
     config.add_route('deauth', '/deauth')
     config.add_route('user', '/user/{username}', factory='famoso_reports.models.UserFactory')
+    config.add_route('reportgroups', '/reportgroup')
     config.add_route('reportgroup', '/reportgroup/{name}', factory='famoso_reports.models.ReportGroupFactory')
+    config.add_route('report', '/reportgroup/{name}/report/{reportname}', factory='famoso_reports.models.ReportGroupFactory')
 
     config.scan('famoso_reports.views')
     return config.make_wsgi_app()

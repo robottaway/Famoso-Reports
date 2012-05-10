@@ -3,6 +3,7 @@ import sha
 
 from pyramid.security import Allow
 from pyramid.security import Everyone
+from pyramid.httpexceptions import HTTPNotFound, HTTPInternalServerError
 
 from sqlalchemy import (
     Column,
@@ -66,6 +67,9 @@ class User(Base):
         if password:
             self.password = self.crypt_password(password)
 
+    def displayName(self):
+        return "%s %s" % (self.first_name, self.last_name)
+
     def crypt_password(self, plaintext):
         if isinstance(plaintext, unicode):
             plaintext = plaintext.encode('utf-8')
@@ -84,6 +88,11 @@ class User(Base):
         else:
             return False
 
+    def findReportGroups(self):
+        if self.admin:
+            return DBSession.query(ReportGroup).all()
+        return self.report_groups
+
     def __str__(self):
         return "<User username: '%s', email: '%s'>" % (self.username, self.email)
 
@@ -94,7 +103,7 @@ def UserFactory(request):
     try:
         user = DBSession.query(User).filter(User.username==username).first()
         if not user:
-            return None
+            raise HTTPNotFound
         user.__name__ = 'user'
         user.__parent__ = None
         user.__acl__ = [
@@ -106,7 +115,7 @@ def UserFactory(request):
             (Allow, 'user:%s' % user.username, 'update'),
         ]
     except DBAPIError:
-        return None
+        return HTTPInternalServerError
     return user
 
 report_group_users = Table('report_group_users', Base.metadata,
@@ -119,11 +128,13 @@ class ReportGroup(Base):
     __tablename__ = 'reportgroups'
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(256), unique=True, nullable=False)
+    displayname = Column(Unicode(256), unique=True, nullable=False)
 
     users = relationship('User', secondary=report_group_users, backref='report_groups')
     
-    def __init__(self, name=None): 
+    def __init__(self, name=None, displayname=None): 
         self.name = name
+        self.displayname = displayname or name
 
     def findReportNamed(self, name):
         for report in self.reports:
@@ -138,7 +149,7 @@ def ReportGroupFactory(request):
     try:
         group = DBSession.query(ReportGroup).filter_by(name=name).first()
         if not group:
-            return None
+            return HTTPNotFound
         group.__name__ = 'reportgroup'
         group.__parent__ = None
         group.__acl__ = [
@@ -149,7 +160,7 @@ def ReportGroupFactory(request):
             (Allow, 'reportgroup:%s' % group.name, 'read'),
         ] 
     except DBAPIError:
-        return None
+        return HTTPInternalServerError
     return group
 
 class Report(Base):

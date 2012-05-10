@@ -378,6 +378,10 @@ body.bp .removed {
   color: white;
 }
 
+/* line 29, ../../../sass/screen.scss */
+form.bp {
+  padding: 20px;
+}
 /* line 18, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
 form.bp label {
   font-weight: bold;
@@ -492,15 +496,47 @@ form.bp form.inline {
 form.bp form.inline p {
   margin-bottom: 0;
 }
+/* line 34, ../../../sass/screen.scss */
+form.bp fieldset legend {
+  font-weight: bold;
+}
+/* line 38, ../../../sass/screen.scss */
+form.bp fieldset ul li {
+  list-style-type: none;
+  clear: both;
+  padding: 0 0 10px 0;
+}
+/* line 42, ../../../sass/screen.scss */
+form.bp fieldset ul li label {
+  float: left;
+  width: 140px;
+  padding: 0 5px 0 0;
+  text-align: right;
+}
+/* line 48, ../../../sass/screen.scss */
+form.bp fieldset ul li input {
+  float: left;
+}
+/* line 51, ../../../sass/screen.scss */
+form.bp fieldset ul li div {
+  display: inline;
+  float: left;
+}
+/* line 55, ../../../sass/screen.scss */
+form.bp fieldset ul li span {
+  float: left;
+  padding: 0 0 0 5px;
+  font-style: italic;
+}
 
-/* line 36, ../../../sass/screen.scss */
+/* line 66, ../../../sass/screen.scss */
 body.two-col #container {
   width: 950px;
   margin: 0 auto;
   overflow: hidden;
   *zoom: 1;
 }
-/* line 38, ../../../sass/screen.scss */
+/* line 68, ../../../sass/screen.scss */
 body.two-col #header, body.two-col #footer {
   display: inline;
   float: left;
@@ -511,7 +547,7 @@ body.two-col #header, body.two-col #footer {
 * html body.two-col #header, * html body.two-col #footer {
   overflow-x: hidden;
 }
-/* line 40, ../../../sass/screen.scss */
+/* line 70, ../../../sass/screen.scss */
 body.two-col #sidebar {
   display: inline;
   float: left;
@@ -522,7 +558,7 @@ body.two-col #sidebar {
 * html body.two-col #sidebar {
   overflow-x: hidden;
 }
-/* line 44, ../../../sass/screen.scss */
+/* line 74, ../../../sass/screen.scss */
 body.two-col #content {
   display: inline;
   float: left;

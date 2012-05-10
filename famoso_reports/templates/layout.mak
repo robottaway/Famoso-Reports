@@ -5,11 +5,16 @@
 	${self.styles()}
 <head>
 </body class="bp">
+<div id="header">
+<a href="${request.route_path('home')}">Home</a>
 % if request.user:
-	<div><a href="/deauth">Logout</a></div>
+	<a href="${request.route_path('reportgroups')}">View Reports</a>
+	<a href="/deauth">Logout</a>
 % else:
-	<div><a href="/signin">Sign In</a></div>
+	<a href="/signin">Sign In</a>
 % endif
+</div>
+
 <div><img id="logo" src="/static/images/logo.jpg" alt="logo" /></div>
 ${next.body()}
 ${self.scripts()}

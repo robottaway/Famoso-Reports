@@ -1,5 +1,5 @@
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 
 from sqlalchemy.exc import DBAPIError
 
@@ -43,17 +43,29 @@ def deauth(request):
 @view_config(route_name='user', renderer='user.mak', permission='read')
 def user(context, request):
     if context is None:
-        print "no user found"
+        return HTTPNotFound
     return {}
 
-@view_config(route_name='home', renderer='test.mak', permission='read')
+@view_config(route_name='home', renderer='home.mak', permission='read')
 def home(context, request):
-    print request.user
     return {}
+
+@view_config(route_name='reportgroups', renderer='reportgroups.mak', permission='read')
+def reportgroups(request):
+    groups = request.user.findReportGroups()
+    if len(groups) == 1:
+        return HTTPFound(location=request.route_path('reportgroup', name=groups[0].name))
+    return {'reportgroups': groups}
 
 @view_config(route_name='reportgroup', renderer='reportgroup.mak', permission='read')
 def reportgroup(context, request):
     return {'reportgroup':context}
+
+@view_config(route_name='report', renderer='report.mak', permission='read')
+def report(context, request):
+    reportname = request.matchdict.get('reportname', None)
+    report = context.findReportNamed(reportname)
+    return {'reportgroup':context, 'report': report}
 
 @view_config(route_name='emailtest', renderer='string')
 def emailtest(request):

@@ -29,7 +29,37 @@ body.bp {
 form.bp {
   @include blueprint-form;
   // You'll probably want to remove the scaffolding once you start styling your site.
-  @include blueprint-scaffolding; }
+  @include blueprint-scaffolding; 
+  padding: 20px;
+  fieldset legend {
+    font-weight: bold;
+  }
+  fieldset ul {
+    li {
+        list-style-type: none;
+        clear: both;
+        padding: 0 0 10px 0;
+        label {
+            float: left;
+            width: 140px;
+            padding: 0 5px 0 0;
+            text-align: right;
+        }
+        input {
+          float: left;
+        }
+        div {
+          display: inline;
+          float: left;
+        }
+        span {
+          float: left;
+          padding: 0 0 0 5px;
+          font-style: italic;
+        }
+    }
+  }  
+}
 
 // Page layout can be done using mixins applied to your semantic classes and IDs:
 body.two-col {
