@@ -53,6 +53,7 @@ def main(global_config, **settings):
     config.add_route('reportgroup', '/reportgroup/{name}', factory='famoso_reports.models.ReportGroupFactory')
     config.add_route('report', '/reportgroup/{name}/report/{reportname}', factory='famoso_reports.models.ReportGroupFactory')
     config.add_route('admin', '/admin', factory=Admin)
+    config.add_route('update_user_groups', '/admin/update_user_groups', factory=Admin)
 
     config.scan('famoso_reports.views')
     return config.make_wsgi_app()

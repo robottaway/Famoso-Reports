@@ -82,9 +82,12 @@ def admin(request):
     groups = DBSession.query(ReportGroup).all()
     return {'users':users,'groups':groups}
 
-@view_config(route_name='update_user_groups', renderer=None, permission='write')
+@view_config(route_name='update_user_groups', renderer=None, permission='update')
 def update_user_groups(request):
-    return HTTPFound(location=request.route_path('user'))
+    username = request.params.get('username', None)
+    if not username:
+        return HTTPNotFound()
+    return HTTPFound(location=request.route_path('user', username=username))
 
 @view_config(route_name='emailtest', renderer='string')
 def emailtest(request):

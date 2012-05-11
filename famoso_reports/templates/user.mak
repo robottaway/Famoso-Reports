@@ -47,9 +47,10 @@
 	</fieldset>
 </form>
 % if request.user.id != user.id:
-<form id="passwordreset" action='auth' method='POST'>
+<form id="passwordreset" action='${request.route_path('update_user_groups')}' method='POST'>
 	<fieldset>
 		<legend>You can update this user '${user.displayName()}' password</legend>
+		<input type="hidden" name="username" value="${user.username}" />
 		<ul>
 % for group in groups:
 			<li><input type="checkbox" name="group" value="${group.name}" /><label>${group.displayname}</label></li>
