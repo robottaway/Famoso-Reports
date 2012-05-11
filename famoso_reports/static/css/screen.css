@@ -57,12 +57,13 @@ a img {
   border: none;
 }
 
-/* line 20, ../../../sass/screen.scss */
+/* line 61, ../../../sass/screen.scss */
 body.bp {
   line-height: 1.5;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   color: #333333;
   font-size: 75%;
+  padding: 20px;
 }
 /* line 51, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 body.bp h1, body.bp h2, body.bp h3, body.bp h4, body.bp h5, body.bp h6 {
@@ -377,166 +378,407 @@ body.bp .removed {
   background: #990000;
   color: white;
 }
-
-/* line 29, ../../../sass/screen.scss */
-form.bp {
-  padding: 20px;
+/* line 69, ../../../sass/screen.scss */
+body.bp div#header {
+  font-size: 16px;
 }
+/* line 50, ../../../sass/screen.scss */
+body.bp div#header a {
+  text-decoration: none;
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+  color: #0000cc;
+  font-size: 16px;
+}
+/* line 4, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_hover-link.scss */
+body.bp div#header a:hover {
+  text-decoration: underline;
+}
+/* line 6, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_unstyled-link.scss */
+body.bp div#header a:active, body.bp div#header a:focus {
+  outline: none;
+}
+/* line 24, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+body.bp div#header a:hover {
+  color: #00cccc;
+}
+/* line 74, ../../../sass/screen.scss */
+body.bp div.breadcrumb {
+  font-size: 16px;
+}
+/* line 50, ../../../sass/screen.scss */
+body.bp div.breadcrumb a {
+  text-decoration: none;
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+  color: #0000cc;
+  font-size: 16px;
+}
+/* line 4, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_hover-link.scss */
+body.bp div.breadcrumb a:hover {
+  text-decoration: underline;
+}
+/* line 6, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_unstyled-link.scss */
+body.bp div.breadcrumb a:active, body.bp div.breadcrumb a:focus {
+  outline: none;
+}
+/* line 24, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+body.bp div.breadcrumb a:hover {
+  color: #00cccc;
+}
+/* line 50, ../../../sass/screen.scss */
+body.bp ul.links a {
+  text-decoration: none;
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+  color: #0000cc;
+  font-size: 16px;
+}
+/* line 4, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_hover-link.scss */
+body.bp ul.links a:hover {
+  text-decoration: underline;
+}
+/* line 6, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_unstyled-link.scss */
+body.bp ul.links a:active, body.bp ul.links a:focus {
+  outline: none;
+}
+/* line 24, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+body.bp ul.links a:hover {
+  color: #00cccc;
+}
+/* line 50, ../../../sass/screen.scss */
+body.bp a {
+  text-decoration: none;
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+  color: #0000cc;
+  font-size: 16px;
+}
+/* line 4, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_hover-link.scss */
+body.bp a:hover {
+  text-decoration: underline;
+}
+/* line 6, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_unstyled-link.scss */
+body.bp a:active, body.bp a:focus {
+  outline: none;
+}
+/* line 24, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+body.bp a:hover {
+  color: #00cccc;
+}
+
+/* line 50, ../../../sass/screen.scss */
+.good_links a {
+  text-decoration: none;
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+  color: #0000cc;
+  font-size: 16px;
+}
+/* line 4, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_hover-link.scss */
+.good_links a:hover {
+  text-decoration: underline;
+}
+/* line 6, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_unstyled-link.scss */
+.good_links a:active, .good_links a:focus {
+  outline: none;
+}
+/* line 24, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+.good_links a:hover {
+  color: #00cccc;
+}
+
 /* line 18, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form.bp label {
+form.readonly label {
   font-weight: bold;
 }
 /* line 19, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form.bp fieldset {
+form.readonly fieldset {
   padding: 1.4em;
   margin: 0 0 1.5em 0;
 }
 /* line 20, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form.bp legend {
+form.readonly legend {
   font-weight: bold;
   font-size: 1.2em;
 }
 /* line 26, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form.bp input.text, form.bp input.title, form.bp input[type=email], form.bp input[type=text], form.bp input[type=password] {
+form.readonly input.text, form.readonly input.title, form.readonly input[type=email], form.readonly input[type=text], form.readonly input[type=password] {
   margin: 0.5em 0;
   background-color: white;
   padding: 5px;
 }
 /* line 27, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form.bp input.title {
+form.readonly input.title {
   font-size: 1.5em;
 }
 /* line 29, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form.bp textarea {
+form.readonly textarea {
   margin: 0.5em 0;
   padding: 5px;
 }
 /* line 30, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form.bp select {
+form.readonly select {
   margin: 0.5em 0;
 }
 /* line 55, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form.bp fieldset {
+form.readonly fieldset {
   border: 1px solid #cccccc;
 }
 /* line 58, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form.bp input.text, form.bp input.title, form.bp input[type=email], form.bp input[type=text], form.bp input[type=password],
-form.bp textarea {
+form.readonly input.text, form.readonly input.title, form.readonly input[type=email], form.readonly input[type=text], form.readonly input[type=password],
+form.readonly textarea {
   background-color: #fff;
   border: 1px solid #bbbbbb;
 }
 /* line 61, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form.bp input.text:focus, form.bp input.title:focus, form.bp input[type=email]:focus, form.bp input[type=text]:focus, form.bp input[type=password]:focus,
-form.bp textarea:focus {
+form.readonly input.text:focus, form.readonly input.title:focus, form.readonly input[type=email]:focus, form.readonly input[type=text]:focus, form.readonly input[type=password]:focus,
+form.readonly textarea:focus {
   border-color: #666666;
 }
 /* line 65, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form.bp select {
+form.readonly select {
   background-color: #fff;
   border-width: 1px;
   border-style: solid;
 }
 /* line 44, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form.bp input.text, form.bp input.title, form.bp input[type=email], form.bp input[type=text], form.bp input[type=password] {
+form.readonly input.text, form.readonly input.title, form.readonly input[type=email], form.readonly input[type=text], form.readonly input[type=password] {
   width: 300px;
 }
 /* line 46, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form.bp textarea {
+form.readonly textarea {
   width: 390px;
   height: 250px;
 }
-/* line 39, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_scaffolding.scss */
-form.bp .box {
-  padding: 1.5em;
-  margin-bottom: 1.5em;
-  background: #e5ecf9;
-}
-/* line 42, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_scaffolding.scss */
-form.bp .border {
-  padding-right: 4px;
-  margin-right: 5px;
-  border-right: 1px solid #dddddd;
-}
-/* line 45, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_scaffolding.scss */
-form.bp .colborder {
-  padding-right: 24px;
-  margin-right: 25px;
-  border-right: 1px solid #dddddd;
-}
-/* line 47, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_scaffolding.scss */
-form.bp hr {
-  background: #dddddd;
-  color: #dddddd;
-  clear: both;
-  float: none;
-  width: 100%;
-  height: 0.1em;
-  margin: 0 0 1.45em;
-  border: none;
-}
-/* line 49, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_scaffolding.scss */
-form.bp hr.space {
-  background: #dddddd;
-  color: #dddddd;
-  clear: both;
-  float: none;
-  width: 100%;
-  height: 0.1em;
-  margin: 0 0 1.45em;
-  border: none;
-  background: white;
-  color: white;
-  visibility: hidden;
-}
-/* line 51, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_scaffolding.scss */
-form.bp form.inline {
-  line-height: 3;
-}
-/* line 6, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form.bp form.inline p {
-  margin-bottom: 0;
-}
-/* line 34, ../../../sass/screen.scss */
-form.bp fieldset legend {
-  font-weight: bold;
-}
-/* line 38, ../../../sass/screen.scss */
-form.bp fieldset ul li {
+/* line 20, ../../../sass/screen.scss */
+form.readonly fieldset ul li {
   list-style-type: none;
   clear: both;
-  padding: 0 0 10px 0;
+  padding: 5px 0 0 0;
 }
-/* line 42, ../../../sass/screen.scss */
-form.bp fieldset ul li label {
+/* line 24, ../../../sass/screen.scss */
+form.readonly fieldset ul li label, form.readonly fieldset ul li input, form.readonly fieldset ul li div, form.readonly fieldset ul li span {
   float: left;
+}
+/* line 27, ../../../sass/screen.scss */
+form.readonly fieldset ul li label:first-child {
   width: 140px;
-  padding: 0 5px 0 0;
+  padding: 7px;
   text-align: right;
 }
-/* line 48, ../../../sass/screen.scss */
-form.bp fieldset ul li input {
-  float: left;
-}
-/* line 51, ../../../sass/screen.scss */
-form.bp fieldset ul li div {
+/* line 34, ../../../sass/screen.scss */
+form.readonly fieldset ul li div {
+  padding: 7px 0;
   display: inline;
-  float: left;
 }
-/* line 55, ../../../sass/screen.scss */
-form.bp fieldset ul li span {
-  float: left;
+/* line 38, ../../../sass/screen.scss */
+form.readonly fieldset ul li span {
   padding: 0 0 0 5px;
   font-style: italic;
 }
+/* line 42, ../../../sass/screen.scss */
+form.readonly fieldset ul li button {
+  margin: 6px 0 0 154px;
+}
 
-/* line 66, ../../../sass/screen.scss */
+/* line 18, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#signin label {
+  font-weight: bold;
+}
+/* line 19, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#signin fieldset {
+  padding: 1.4em;
+  margin: 0 0 1.5em 0;
+}
+/* line 20, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#signin legend {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+/* line 26, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#signin input.text, form#signin input.title, form#signin input[type=email], form#signin input[type=text], form#signin input[type=password] {
+  margin: 0.5em 0;
+  background-color: white;
+  padding: 5px;
+}
+/* line 27, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#signin input.title {
+  font-size: 1.5em;
+}
+/* line 29, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#signin textarea {
+  margin: 0.5em 0;
+  padding: 5px;
+}
+/* line 30, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#signin select {
+  margin: 0.5em 0;
+}
+/* line 55, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#signin fieldset {
+  border: 1px solid #cccccc;
+}
+/* line 58, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#signin input.text, form#signin input.title, form#signin input[type=email], form#signin input[type=text], form#signin input[type=password], form#signin textarea {
+  background-color: #fff;
+  border: 1px solid #bbbbbb;
+}
+/* line 61, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#signin input.text:focus, form#signin input.title:focus, form#signin input[type=email]:focus, form#signin input[type=text]:focus, form#signin input[type=password]:focus, form#signin textarea:focus {
+  border-color: #666666;
+}
+/* line 65, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#signin select {
+  background-color: #fff;
+  border-width: 1px;
+  border-style: solid;
+}
+/* line 44, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#signin input.text, form#signin input.title, form#signin input[type=email], form#signin input[type=text], form#signin input[type=password] {
+  width: 300px;
+}
+/* line 46, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#signin textarea {
+  width: 390px;
+  height: 250px;
+}
+/* line 20, ../../../sass/screen.scss */
+form#signin fieldset ul li {
+  list-style-type: none;
+  clear: both;
+  padding: 5px 0 0 0;
+}
+/* line 24, ../../../sass/screen.scss */
+form#signin fieldset ul li label, form#signin fieldset ul li input, form#signin fieldset ul li div, form#signin fieldset ul li span {
+  float: left;
+}
+/* line 27, ../../../sass/screen.scss */
+form#signin fieldset ul li label:first-child {
+  width: 60px;
+  padding: 7px;
+  text-align: right;
+}
+/* line 34, ../../../sass/screen.scss */
+form#signin fieldset ul li div {
+  padding: 7px 0;
+  display: inline;
+}
+/* line 38, ../../../sass/screen.scss */
+form#signin fieldset ul li span {
+  padding: 0 0 0 5px;
+  font-style: italic;
+}
+/* line 42, ../../../sass/screen.scss */
+form#signin fieldset ul li button {
+  margin: 6px 0 0 74px;
+}
+
+/* line 18, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#passwordreset label {
+  font-weight: bold;
+}
+/* line 19, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#passwordreset fieldset {
+  padding: 1.4em;
+  margin: 0 0 1.5em 0;
+}
+/* line 20, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#passwordreset legend {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+/* line 26, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#passwordreset input.text, form#passwordreset input.title, form#passwordreset input[type=email], form#passwordreset input[type=text], form#passwordreset input[type=password] {
+  margin: 0.5em 0;
+  background-color: white;
+  padding: 5px;
+}
+/* line 27, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#passwordreset input.title {
+  font-size: 1.5em;
+}
+/* line 29, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#passwordreset textarea {
+  margin: 0.5em 0;
+  padding: 5px;
+}
+/* line 30, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#passwordreset select {
+  margin: 0.5em 0;
+}
+/* line 55, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#passwordreset fieldset {
+  border: 1px solid #cccccc;
+}
+/* line 58, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#passwordreset input.text, form#passwordreset input.title, form#passwordreset input[type=email], form#passwordreset input[type=text], form#passwordreset input[type=password], form#passwordreset textarea {
+  background-color: #fff;
+  border: 1px solid #bbbbbb;
+}
+/* line 61, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#passwordreset input.text:focus, form#passwordreset input.title:focus, form#passwordreset input[type=email]:focus, form#passwordreset input[type=text]:focus, form#passwordreset input[type=password]:focus, form#passwordreset textarea:focus {
+  border-color: #666666;
+}
+/* line 65, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#passwordreset select {
+  background-color: #fff;
+  border-width: 1px;
+  border-style: solid;
+}
+/* line 44, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#passwordreset input.text, form#passwordreset input.title, form#passwordreset input[type=email], form#passwordreset input[type=text], form#passwordreset input[type=password] {
+  width: 300px;
+}
+/* line 46, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/blueprint/stylesheets/blueprint/_form.scss */
+form#passwordreset textarea {
+  width: 390px;
+  height: 250px;
+}
+/* line 20, ../../../sass/screen.scss */
+form#passwordreset fieldset ul li {
+  list-style-type: none;
+  clear: both;
+  padding: 5px 0 0 0;
+}
+/* line 24, ../../../sass/screen.scss */
+form#passwordreset fieldset ul li label, form#passwordreset fieldset ul li input, form#passwordreset fieldset ul li div, form#passwordreset fieldset ul li span {
+  float: left;
+}
+/* line 27, ../../../sass/screen.scss */
+form#passwordreset fieldset ul li label:first-child {
+  width: 140px;
+  padding: 7px;
+  text-align: right;
+}
+/* line 34, ../../../sass/screen.scss */
+form#passwordreset fieldset ul li div {
+  padding: 7px 0;
+  display: inline;
+}
+/* line 38, ../../../sass/screen.scss */
+form#passwordreset fieldset ul li span {
+  padding: 0 0 0 5px;
+  font-style: italic;
+}
+/* line 42, ../../../sass/screen.scss */
+form#passwordreset fieldset ul li button {
+  margin: 6px 0 0 154px;
+}
+
+/* line 103, ../../../sass/screen.scss */
 body.two-col #container {
   width: 950px;
   margin: 0 auto;
   overflow: hidden;
   *zoom: 1;
 }
-/* line 68, ../../../sass/screen.scss */
+/* line 105, ../../../sass/screen.scss */
 body.two-col #header, body.two-col #footer {
   display: inline;
   float: left;
@@ -547,7 +789,7 @@ body.two-col #header, body.two-col #footer {
 * html body.two-col #header, * html body.two-col #footer {
   overflow-x: hidden;
 }
-/* line 70, ../../../sass/screen.scss */
+/* line 107, ../../../sass/screen.scss */
 body.two-col #sidebar {
   display: inline;
   float: left;
@@ -558,7 +800,7 @@ body.two-col #sidebar {
 * html body.two-col #sidebar {
   overflow-x: hidden;
 }
-/* line 74, ../../../sass/screen.scss */
+/* line 111, ../../../sass/screen.scss */
 body.two-col #content {
   display: inline;
   float: left;

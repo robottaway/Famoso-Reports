@@ -4,19 +4,26 @@
 	<title>${self.title()}</title>
 	${self.styles()}
 <head>
-</body class="bp">
+<body class="bp">
+
 <div id="header">
-<a href="${request.route_path('home')}">Home</a>
+<div>
+<a href="${request.route_path('home')}">Home</a> |
 % if request.user:
-	<a href="${request.route_path('reportgroups')}">View Reports</a>
+	<a href="${request.route_path('reportgroups')}">View Reports</a> |
+	<a href="${request.route_path('user', username=request.user.username)}">Account</a> |
+% if request.user.admin:
+	<a href="${request.route_path('admin')}">Admin</a> |
+% endif
 	<a href="/deauth">Logout</a>
 % else:
 	<a href="/signin">Sign In</a>
 % endif
 </div>
+</div>
 
-<div><img id="logo" src="/static/images/logo.jpg" alt="logo" /></div>
 ${next.body()}
+
 ${self.scripts()}
 </body>
 </html>

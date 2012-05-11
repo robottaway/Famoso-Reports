@@ -8,6 +8,7 @@ from .models import (
     DBSession,
     User,
     Root,
+    Admin,
     )
 from famoso_reports.security import FamosoAuthenticationPolicy
 
@@ -51,6 +52,7 @@ def main(global_config, **settings):
     config.add_route('reportgroups', '/reportgroup')
     config.add_route('reportgroup', '/reportgroup/{name}', factory='famoso_reports.models.ReportGroupFactory')
     config.add_route('report', '/reportgroup/{name}/report/{reportname}', factory='famoso_reports.models.ReportGroupFactory')
+    config.add_route('admin', '/admin', factory=Admin)
 
     config.scan('famoso_reports.views')
     return config.make_wsgi_app()

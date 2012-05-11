@@ -39,3 +39,7 @@ def main(argv=sys.argv):
                         email=u'robottaway@gmail.com', admin=True,
                         first_name=u'Rob', last_name=u'Ottaway')
             DBSession.add(user)
+            user = User(username=u'testguy', password=u'password', 
+                        email=u'robottaway+testguy@gmail.com', admin=False,
+                        first_name=u'Test', last_name=u'Guy')
+            DBSession.add(user)

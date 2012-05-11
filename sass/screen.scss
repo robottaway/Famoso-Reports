@@ -14,6 +14,47 @@
 // configuration applied, uncomment:
 // @include blueprint
 
+@mixin nice_form($label_width: 100px) {
+  @include blueprint-form;
+  fieldset ul {
+    li {
+        list-style-type: none;
+        clear: both;
+        padding: 5px 0 0 0;
+        label, input, div, span {
+          float: left;
+        }
+        label:first-child  {
+          width: $label_width;
+          padding: 7px;
+          text-align: right;
+        }
+        input[type=checkbox] {
+        }
+        div {
+          padding: 7px 0;
+          display: inline;
+        }
+        span {
+          padding: 0 0 0 5px;
+          font-style: italic;
+        }
+        button {
+            margin: 6px 0 0 $label_width+14px;
+        }
+    }
+  }
+}
+
+@mixin good_links($size: 12px) {
+  a {
+     @include hover-link;
+     @include unstyled-link;
+     @include link-colors(#00c, #0cc);
+     font-size: $size;
+  }
+}
+
 // If you are doing a lot of stylesheet concatenation, it is suggested
 // that you scope your blueprint styles, so that you can better control
 // what pages use blueprint when stylesheets are concatenated together.
@@ -24,41 +65,37 @@ body.bp {
   @include blueprint-interaction;
   // Remove the scaffolding when you're ready to start doing visual design.
   // Or leave it in if you're happy with how blueprint looks out-of-the-box
+  padding: 20px;
+  div#header {
+    $size: 16px;
+    font-size: $size;
+    @include good_links($size);
+  }
+  div.breadcrumb {
+    $size: 16px;
+    font-size: $size;
+    @include good_links($size);
+  }
+  ul.links {
+    @include good_links(16px);
+  }
+  @include good_links(16px);
 }
 
-form.bp {
-  @include blueprint-form;
-  // You'll probably want to remove the scaffolding once you start styling your site.
-  @include blueprint-scaffolding; 
-  padding: 20px;
-  fieldset legend {
-    font-weight: bold;
-  }
-  fieldset ul {
-    li {
-        list-style-type: none;
-        clear: both;
-        padding: 0 0 10px 0;
-        label {
-            float: left;
-            width: 140px;
-            padding: 0 5px 0 0;
-            text-align: right;
-        }
-        input {
-          float: left;
-        }
-        div {
-          display: inline;
-          float: left;
-        }
-        span {
-          float: left;
-          padding: 0 0 0 5px;
-          font-style: italic;
-        }
-    }
-  }  
+.good_links {
+    @include good_links(16px);
+}
+
+form.readonly {
+  @include nice_form(140px);
+}
+
+form#signin {
+  @include nice_form(60px);
+}
+
+form#passwordreset {
+  @include nice_form(140px);
 }
 
 // Page layout can be done using mixins applied to your semantic classes and IDs:

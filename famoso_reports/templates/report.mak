@@ -2,7 +2,7 @@
 	<a href="${request.route_path('reportgroup', name=reportgroup.name)}">Back to reports for <strong>${reportgroup.displayname}</strong></a>
 </div>
 
-<form class="bp">
+<form class="readonly">
 <fieldset>
 <legend>This is the report <strong>${report.name}</strong></legend>
 <ul>

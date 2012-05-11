@@ -40,6 +40,18 @@ class Root(object):
             (Allow, 'admin', 'delete'),
         ]
 
+class Admin(object):
+
+    __acl__ = []
+
+    def __init__(self, request):
+        self.__acl__ = [
+            (Allow, 'admin', 'create'),
+            (Allow, 'admin', 'read'),
+            (Allow, 'admin', 'update'),
+            (Allow, 'admin', 'delete'),
+        ]
+
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
@@ -92,6 +104,12 @@ class User(Base):
         if self.admin:
             return DBSession.query(ReportGroup).all()
         return self.report_groups
+
+    def hasReportGroup(self, tofind):
+        for group in self.report_groups:
+            if group.id == tofind.id:
+                return True
+        return False
 
     def __str__(self):
         return "<User username: '%s', email: '%s'>" % (self.username, self.email)
