@@ -77,10 +77,13 @@ class User(Base):
         self.first_name = first_name
         self.last_name = last_name
         if password:
-            self.password = self.crypt_password(password)
+            self.update_password(password)
 
     def displayName(self):
         return "%s %s" % (self.first_name, self.last_name)
+
+    def update_password(self, password):
+        self.password = self.crypt_password(password)
 
     def crypt_password(self, plaintext):
         if isinstance(plaintext, unicode):
@@ -129,6 +132,7 @@ def UserFactory(request):
             (Allow, 'admin', 'read'),
             (Allow, 'admin', 'update'),
             (Allow, 'admin', 'delete'),
+            (Allow, 'admin', 'update_groups'),
             (Allow, 'user:%s' % user.username, 'read'),
             (Allow, 'user:%s' % user.username, 'update'),
         ]

@@ -1,8 +1,4 @@
-% if request.session.peek_flash():
-% for msg in request.session.pop_flash():
-<div class="flash">${msg}</div>
-% endfor
-% endif
+${self.flash()}
 <form id="signin" action='auth' method='POST'>
 	<fieldset>
 		<legend>Please enter your username and password</legend>

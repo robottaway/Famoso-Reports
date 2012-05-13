@@ -1,3 +1,7 @@
+<div>
+	<a href="${request.route_path('create_user')}">Create User</a>
+</div>
+
 <form class="readonly">
 <fieldset>
 <legend>You can view and update user info</legend>

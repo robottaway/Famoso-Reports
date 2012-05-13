@@ -16,6 +16,9 @@ from ..models import (
     Report
     )
 
+new_groups = []
+groups_with_new_reports = []
+
 def usage(argv):
     cmd = os.path.basename(argv[0])
     print('usage: %s <config_uri>\n'
@@ -75,6 +78,7 @@ def handleRootFolder(rootFolder):
             with transaction.manager:
                 report_group = DBSession.query(ReportGroup).filter_by(name=unicode(folder)).first()
                 if report_group is None:
+            request.session.flash('Added to group %s' % group.name)
                     report_group = ReportGroup(name=unicode(folder))
                     DBSession.add(report_group)
                 reportFolder = os.path.join(root, folder)

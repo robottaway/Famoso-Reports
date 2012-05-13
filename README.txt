@@ -12,3 +12,10 @@ Getting Started
 
 - $venv/bin/pserve development.ini
 
+Psycopg
+---------------------------------------
+OS X macports add pg_conf location such as:
+
+/opt/local/lib/postgresql91/bin/
+
+To path before pip install to make sure psycopg installs.

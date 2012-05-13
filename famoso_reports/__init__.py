@@ -9,6 +9,7 @@ from .models import (
     User,
     Root,
     Admin,
+    UserFactory,
     )
 from famoso_reports.security import FamosoAuthenticationPolicy
 
@@ -43,17 +44,25 @@ def main(global_config, **settings):
 
     config.add_static_view('static', 'static', cache_max_age=3600)
 
-    config.add_route('home', '/')
+    config.add_route('home', '/', request_method='GET') # same view as signin
+    config.add_route('signin', '/signin', request_method='GET')
     config.add_route('emailtest', '/emailtest')
-    config.add_route('signin', '/signin')
-    config.add_route('auth', '/auth')
-    config.add_route('deauth', '/deauth')
-    config.add_route('user', '/user/{username}', factory='famoso_reports.models.UserFactory')
-    config.add_route('reportgroups', '/reportgroup')
-    config.add_route('reportgroup', '/reportgroup/{name}', factory='famoso_reports.models.ReportGroupFactory')
-    config.add_route('report', '/reportgroup/{name}/report/{reportname}', factory='famoso_reports.models.ReportGroupFactory')
-    config.add_route('admin', '/admin', factory=Admin)
-    config.add_route('update_user_groups', '/admin/update_user_groups', factory=Admin)
+    config.add_route('auth', '/auth', request_method='POST')
+    config.add_route('deauth', '/deauth', request_method='GET')
+    config.add_route('user', '/user/{username}', request_method='GET',
+            factory=UserFactory)
+    config.add_route('update_password', '/user/{username}/password', 
+            factory=UserFactory, request_method='POST')
+    config.add_route('update_user_details', '/user/{username}/details', 
+            factory=UserFactory, request_method='POST')
+    config.add_route('update_user_groups', '/user/{username}/update_user_groups', 
+            request_method='POST', factory=UserFactory)
+    config.add_route('reportgroups', '/reportgroup', request_method='GET')
+    config.add_route('reportgroup', '/reportgroup/{name}', request_method='GET',
+            factory='famoso_reports.models.ReportGroupFactory')
+    config.add_route('report', '/reportgroup/{name}/report/{reportname}', 
+            request_method='GET', factory='famoso_reports.models.ReportGroupFactory')
+    config.add_route('admin', '/admin', factory=Admin, request_method='GET')
 
     config.scan('famoso_reports.views')
     return config.make_wsgi_app()

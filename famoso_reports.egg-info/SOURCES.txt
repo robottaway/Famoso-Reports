@@ -26,8 +26,11 @@ famoso_reports/static/css/print.css
 famoso_reports/static/css/screen.css
 famoso_reports/static/images/grid.png
 famoso_reports/static/images/logo.jpg
-famoso_reports/templates/mytemplate.pt
+famoso_reports/templates/admin.mak
+famoso_reports/templates/home.mak
+famoso_reports/templates/layout.mak
+famoso_reports/templates/report.mak
 famoso_reports/templates/reportgroup.mak
+famoso_reports/templates/reportgroups.mak
 famoso_reports/templates/signin.mak
-famoso_reports/templates/test.mak
 famoso_reports/templates/user.mak

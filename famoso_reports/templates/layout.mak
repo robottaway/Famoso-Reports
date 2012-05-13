@@ -8,7 +8,6 @@
 
 <div id="header">
 <div>
-<a href="${request.route_path('home')}">Home</a> |
 % if request.user:
 	<a href="${request.route_path('reportgroups')}">View Reports</a> |
 	<a href="${request.route_path('user', username=request.user.username)}">Account</a> |
@@ -16,8 +15,6 @@
 	<a href="${request.route_path('admin')}">Admin</a> |
 % endif
 	<a href="/deauth">Logout</a>
-% else:
-	<a href="/signin">Sign In</a>
 % endif
 </div>
 </div>
@@ -36,6 +33,14 @@ ${self.scripts()}
   <!--[if lt IE 8]>
       <link href="/static/css/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
   <![endif]-->
+</%def>
+
+<%def name="flash()">
+% if request.session.peek_flash():
+% for msg in request.session.pop_flash():
+<div class="error">${msg}</div>
+% endfor
+% endif
 </%def>
 
 <%def name="scripts()">

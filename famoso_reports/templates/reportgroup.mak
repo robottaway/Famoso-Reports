@@ -6,7 +6,7 @@
 
 <form class="readonly">
 <fieldset>
-<legend>This is a listing of reports for ${reportgroup.displayname}</legend>
+<legend>${reportgroup.displayname}</legend>
 <ul>
 % for report in reportgroup.reports:
 	<li><a href="${request.route_path('report', name=reportgroup.name, reportname=report.name)}">${report.name}</a></li>

@@ -4,7 +4,7 @@
 
 <form class="readonly">
 <fieldset>
-<legend>This is the report <strong>${report.name}</strong></legend>
+<legend>${report.name}</legend>
 <ul>
 	<li><label>USDAID</label><div>${report.usdaid}</div></li>
 	<li><label>Grower</label><div>${report.grower}</div></li>
