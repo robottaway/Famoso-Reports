@@ -57,7 +57,7 @@ a img {
   border: none;
 }
 
-/* line 64, ../../../sass/screen.scss */
+/* line 65, ../../../sass/screen.scss */
 body.bp {
   line-height: 1.5;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -378,11 +378,11 @@ body.bp .removed {
   background: #990000;
   color: white;
 }
-/* line 72, ../../../sass/screen.scss */
+/* line 73, ../../../sass/screen.scss */
 body.bp div#header {
   font-size: 16px;
 }
-/* line 53, ../../../sass/screen.scss */
+/* line 54, ../../../sass/screen.scss */
 body.bp div#header a {
   text-decoration: none;
   color: inherit;
@@ -403,11 +403,11 @@ body.bp div#header a:active, body.bp div#header a:focus {
 body.bp div#header a:hover {
   color: #00cccc;
 }
-/* line 77, ../../../sass/screen.scss */
+/* line 78, ../../../sass/screen.scss */
 body.bp div.breadcrumb {
   font-size: 16px;
 }
-/* line 53, ../../../sass/screen.scss */
+/* line 54, ../../../sass/screen.scss */
 body.bp div.breadcrumb a {
   text-decoration: none;
   color: inherit;
@@ -428,7 +428,7 @@ body.bp div.breadcrumb a:active, body.bp div.breadcrumb a:focus {
 body.bp div.breadcrumb a:hover {
   color: #00cccc;
 }
-/* line 53, ../../../sass/screen.scss */
+/* line 54, ../../../sass/screen.scss */
 body.bp ul.links a {
   text-decoration: none;
   color: inherit;
@@ -449,7 +449,7 @@ body.bp ul.links a:active, body.bp ul.links a:focus {
 body.bp ul.links a:hover {
   color: #00cccc;
 }
-/* line 53, ../../../sass/screen.scss */
+/* line 54, ../../../sass/screen.scss */
 body.bp a {
   text-decoration: none;
   color: inherit;
@@ -549,17 +549,21 @@ body.bp fieldset ul li label:first-child {
   padding: 9px 5px 0 0;
   text-align: right;
 }
-/* line 37, ../../../sass/screen.scss */
+/* line 35, ../../../sass/screen.scss */
+body.bp fieldset ul li label + input[type=checkbox] {
+  margin: 13px 0 0 4px;
+}
+/* line 38, ../../../sass/screen.scss */
 body.bp fieldset ul li div {
   padding: 9px 0 0 0;
   display: inline;
 }
-/* line 41, ../../../sass/screen.scss */
+/* line 42, ../../../sass/screen.scss */
 body.bp fieldset ul li span {
   padding: 0 0 0 5px;
   font-style: italic;
 }
-/* line 45, ../../../sass/screen.scss */
+/* line 46, ../../../sass/screen.scss */
 body.bp fieldset ul li button {
   margin: 6px 0 0 144px;
 }
@@ -641,22 +645,26 @@ form#signin fieldset ul li label:first-child {
   padding: 9px 5px 0 0;
   text-align: right;
 }
-/* line 37, ../../../sass/screen.scss */
+/* line 35, ../../../sass/screen.scss */
+form#signin fieldset ul li label + input[type=checkbox] {
+  margin: 13px 0 0 4px;
+}
+/* line 38, ../../../sass/screen.scss */
 form#signin fieldset ul li div {
   padding: 9px 0 0 0;
   display: inline;
 }
-/* line 41, ../../../sass/screen.scss */
+/* line 42, ../../../sass/screen.scss */
 form#signin fieldset ul li span {
   padding: 0 0 0 5px;
   font-style: italic;
 }
-/* line 45, ../../../sass/screen.scss */
+/* line 46, ../../../sass/screen.scss */
 form#signin fieldset ul li button {
   margin: 6px 0 0 64px;
 }
 
-/* line 93, ../../../sass/screen.scss */
+/* line 94, ../../../sass/screen.scss */
 button {
   display: -moz-inline-box;
   -moz-box-orient: vertical;
@@ -730,7 +738,7 @@ button:active {
   border-color: #72a9d5 #6299c5 #6299c5 #72a9d5;
   color: white;
 }
-/* line 104, ../../../sass/screen.scss */
+/* line 105, ../../../sass/screen.scss */
 button:hover {
   color: white;
   border-color: #0064cd #0064cd #003f81;

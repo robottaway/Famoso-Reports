@@ -5,7 +5,7 @@ ${self.passwordreset()}
 % else:
 ${self.userdetails()}
 ${self.passwordreset()}
-% if request.user.id != user.id:
+% if not user.admin:
 <form action="${request.route_path('update_user_groups', username=user.username)}" method="POST">
 	<fieldset>
 		<legend>You can update report groups for user '${user.displayName()}'</legend>

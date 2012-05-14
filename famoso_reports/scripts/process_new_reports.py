@@ -5,6 +5,9 @@ import transaction
 
 from sqlalchemy import engine_from_config
 
+from pyramid_mailer.mailer import Mailer
+from pyramid_mailer.message import Message
+
 from pyramid.paster import (
     get_appsettings,
     setup_logging,
@@ -16,8 +19,8 @@ from ..models import (
     Report
     )
 
-new_groups = []
-groups_with_new_reports = []
+new_groups = set()
+groups_with_new_reports = set()
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
@@ -49,6 +52,7 @@ def reportFromRow(row):
 
 
 def handleReportFolder(reportFolder, report_group):
+    global groups_with_new_reports
     for root, subFolders, files in os.walk(reportFolder):
         for file in files:
             name, extension = os.path.splitext(file)
@@ -59,6 +63,7 @@ def handleReportFolder(reportFolder, report_group):
                     continue
                 report = report_group.findReportNamed(name)
                 if not report:
+                    groups_with_new_reports.add(report_group)
                     full_path = os.path.join(root, file)
                     print "found file: '%s'" % full_path
                     csvreader = csv.reader(open(full_path, 'rb'), delimiter=',', quotechar='\'')
@@ -72,18 +77,18 @@ def handleReportFolder(reportFolder, report_group):
 
 
 def handleRootFolder(rootFolder):
+    global new_groups
     for root, subFolders, files in os.walk(rootFolder):
         for folder in subFolders:
             print "Report Group Folder '%s'\n----------------------" % folder
-            with transaction.manager:
-                report_group = DBSession.query(ReportGroup).filter_by(name=unicode(folder)).first()
-                if report_group is None:
-            request.session.flash('Added to group %s' % group.name)
-                    report_group = ReportGroup(name=unicode(folder))
-                    DBSession.add(report_group)
+            report_group = DBSession.query(ReportGroup).filter_by(name=unicode(folder)).first()
+            if report_group is None:
+                request.session.flash('Added to group %s' % group.name)
+                report_group = ReportGroup(name=unicode(folder))
+                new_groups.add(report_group)
+                DBSession.add(report_group)
                 reportFolder = os.path.join(root, folder)
                 handleReportFolder(reportFolder, report_group)
-
 
 def main(argv=sys.argv):
     if len(argv) != 2:
@@ -92,10 +97,16 @@ def main(argv=sys.argv):
     setup_logging(config_uri)
     settings = get_appsettings(config_uri)
     engine = engine_from_config(settings, 'sqlalchemy.')
+    mailer = Mailer.from_settings(settings)
     DBSession.configure(bind=engine)
 
     rootFolder = settings['reports.folder']
 
     print "Processing reports in folder '%s'" % rootFolder
-
-    handleRootFolder(rootFolder)
+    with transaction:
+        message = Message(subject='New Reports Available', 
+                    sender='admin@famosonut.com',
+                    recipients=['robottaway+script@gmail.com'],
+                    body='hey')
+        mailer.send(message)
+        handleRootFolder(rootFolder)
