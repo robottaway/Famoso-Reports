@@ -168,6 +168,13 @@ class ReportGroup(Base):
                 return report
         return None
 
+    def findAllUsers(self):
+        """Return users in this report group and admins,
+        all users with access"""
+
+        admins = DBSession.query(User).filter_by(admin=True).all()
+        return set(self.users + admins)
+
 def ReportGroupFactory(request):
     name = request.matchdict.get('name', None)
     if not name:

@@ -44,6 +44,15 @@ def main(global_config, **settings):
 
     config.add_static_view('static', 'static', cache_max_age=3600)
 
+    add_routes(config)
+
+    config.scan('famoso_reports.views')
+    return config.make_wsgi_app()
+
+
+def add_routes(config):
+    """Add all the routes given the config"""
+
     config.add_route('home', '/', request_method='GET') # same view as signin
     config.add_route('signin', '/signin', request_method='GET')
     config.add_route('auth', '/auth', request_method='POST')
@@ -64,7 +73,4 @@ def main(global_config, **settings):
     config.add_route('admin', '/admin', factory=Admin, request_method='GET')
     config.add_route('new_user', '/admin/new_user', factory=Admin, request_method='GET')
     config.add_route('create_user', '/admin/create_user', factory=Admin, request_method='POST')
-
-    config.scan('famoso_reports.views')
-    return config.make_wsgi_app()
 

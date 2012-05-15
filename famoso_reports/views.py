@@ -7,8 +7,6 @@ from sqlalchemy.exc import DBAPIError
 from pyramid_mailer import get_mailer
 from pyramid_mailer.message import Message
 
-import transaction
-
 from .models import (
     DBSession,
     User,
