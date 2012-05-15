@@ -19,8 +19,9 @@ from ..models import (
     Report
     )
 
-new_groups = set()
-groups_with_new_reports = set()
+new_groups = []
+groups_new_reports = {}
+user_new_reports = {}
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
@@ -52,7 +53,7 @@ def reportFromRow(row):
 
 
 def handleReportFolder(reportFolder, report_group):
-    global groups_with_new_reports
+    global groups_new_reports, user_new_reports
     for root, subFolders, files in os.walk(reportFolder):
         for file in files:
             name, extension = os.path.splitext(file)
@@ -63,7 +64,6 @@ def handleReportFolder(reportFolder, report_group):
                     continue
                 report = report_group.findReportNamed(name)
                 if not report:
-                    groups_with_new_reports.add(report_group)
                     full_path = os.path.join(root, file)
                     print "found file: '%s'" % full_path
                     csvreader = csv.reader(open(full_path, 'rb'), delimiter=',', quotechar='\'')
@@ -73,6 +73,9 @@ def handleReportFolder(reportFolder, report_group):
                     report.name = unicode(name)
                     report.report_group = report_group
                     DBSession.add(report)
+                    groups_with_new_reports.add(report_group)
+		    for user in report_group.users:
+		        user_new_reports.setdefault(user.username], []).append(link)
     print ''
 
 
@@ -83,12 +86,11 @@ def handleRootFolder(rootFolder):
             print "Report Group Folder '%s'\n----------------------" % folder
             report_group = DBSession.query(ReportGroup).filter_by(name=unicode(folder)).first()
             if report_group is None:
-                request.session.flash('Added to group %s' % group.name)
                 report_group = ReportGroup(name=unicode(folder))
-                new_groups.add(report_group)
+                new_groups.append(report_group)
                 DBSession.add(report_group)
-                reportFolder = os.path.join(root, folder)
-                handleReportFolder(reportFolder, report_group)
+            reportFolder = os.path.join(root, folder)
+            handleReportFolder(reportFolder, report_group)
 
 def main(argv=sys.argv):
     if len(argv) != 2:
@@ -103,10 +105,15 @@ def main(argv=sys.argv):
     rootFolder = settings['reports.folder']
 
     print "Processing reports in folder '%s'" % rootFolder
-    with transaction:
-        message = Message(subject='New Reports Available', 
-                    sender='admin@famosonut.com',
-                    recipients=['robottaway+script@gmail.com'],
-                    body='hey')
-        mailer.send(message)
+    try:
         handleRootFolder(rootFolder)
+    except Exception as e:
+	transaction.abort()
+	print "Got an exception while processing reports: %s" % e
+	body = str(e)
+        message = Message(subject='Famoso Reports - failed to process', 
+                    sender='admin@famosonut.com',
+                    recipients=['robottaway@gmail.com'],
+                    body=body)
+        mailer.send(message)
+	
