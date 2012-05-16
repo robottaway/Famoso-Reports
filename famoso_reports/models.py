@@ -13,6 +13,7 @@ from sqlalchemy import (
     Boolean,
     Table,
     ForeignKey,
+    Float,
     )
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.ext.declarative import declarative_base
@@ -228,7 +229,7 @@ class Report(Base):
     shell_out_loss = Column(Integer, nullable=False)
     excess_moisture = Column(Integer, nullable=False)
     crop_year = Column(Integer, nullable=False)
-    acres = Column(Integer, nullable=False)
+    acres = Column(Float(precision=2), nullable=False)
 
     report_group = relationship('ReportGroup', backref=backref('reports', order_by=id))
 

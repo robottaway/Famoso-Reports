@@ -60,7 +60,7 @@ def reportFromRow(row):
     report.shell_out_loss = int(row[14])
     report.excess_moisture = int(row[15])
     report.crop_year = int(row[16])
-    report.acres = int(row[17])
+    report.acres = float(row[17])
     return report
 
 
@@ -171,6 +171,8 @@ def main(argv=sys.argv):
     except Exception as e:
         transaction.abort()
         stack = traceback.format_exc()
+	print e
+	print stack
         body = "Got an exception while processing reports: %s\n\n%s" % (e, stack)
         message = Message(subject='Famoso Reports - failed to process', 
                     sender='admin@famosonut.com',
