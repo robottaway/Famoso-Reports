@@ -1,5 +1,5 @@
 import os
-import sha
+import hashlib
 
 from pyramid.security import Allow
 from pyramid.security import Everyone
@@ -92,8 +92,8 @@ class User(Base):
     def crypt_password(self, plaintext):
         if isinstance(plaintext, unicode):
             plaintext = plaintext.encode('utf-8')
-        salt = sha.new(os.urandom(60)).hexdigest()
-        cryptval = sha.new(plaintext + salt).hexdigest()
+        salt = hashlib.sha1(os.urandom(60)).hexdigest()
+        cryptval = hashlib.sha1(plaintext + salt).hexdigest()
         return salt + cryptval
 
     def verify(self, plaintext):
@@ -101,7 +101,7 @@ class User(Base):
             plaintext = plaintext.encode('utf-8')
         password_salt = self.password[:40]
         plaintext = plaintext.encode('ascii', 'ignore')
-        crypt_pass = sha.new(plaintext + password_salt).hexdigest()
+        crypt_pass = hashlib.sha1(plaintext + password_salt).hexdigest()
         if crypt_pass == self.password[40:]:
             return True
         else:
@@ -175,6 +175,11 @@ class ReportGroup(Base):
         admins = DBSession.query(User).filter_by(admin=True).all()
         return set(self.users + admins)
 
+    def file_location(self, request):
+        root = request.registry.settings.get('reports.folder', '')
+        group_loc = "%s/%s" % (root, self.name)
+        return group_loc
+
 def ReportGroupFactory(request):
     name = request.matchdict.get('name', None)
     if not name:
@@ -190,6 +195,7 @@ def ReportGroupFactory(request):
             (Allow, 'admin', 'read'),
             (Allow, 'admin', 'update'),
             (Allow, 'admin', 'delete'),
+            (Allow, 'admin', 'email'),
             (Allow, 'reportgroup:%s' % group.name, 'read'),
         ] 
     except DBAPIError:
@@ -225,6 +231,12 @@ class Report(Base):
     acres = Column(Integer, nullable=False)
 
     report_group = relationship('ReportGroup', backref=backref('reports', order_by=id))
+
+    def file_locations(self, request):
+        root = self.report_group.file_location(request)
+        csv_loc = "%s/%s.csv" % (root, self.name)
+        pdf_loc = "%s/%s.pdf" % (root, self.name)
+        return (csv_loc, pdf_loc)
 
     def __init__(self):
         pass

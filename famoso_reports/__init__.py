@@ -10,6 +10,7 @@ from .models import (
     Root,
     Admin,
     UserFactory,
+    ReportGroupFactory,
     )
 from famoso_reports.security import FamosoAuthenticationPolicy
 
@@ -67,9 +68,11 @@ def add_routes(config):
             request_method='POST', factory=UserFactory)
     config.add_route('reportgroups', '/reportgroup', request_method='GET')
     config.add_route('reportgroup', '/reportgroup/{name}', request_method='GET',
-            factory='famoso_reports.models.ReportGroupFactory')
+            factory=ReportGroupFactory)
     config.add_route('report', '/reportgroup/{name}/report/{reportname}', 
-            request_method='GET', factory='famoso_reports.models.ReportGroupFactory')
+            request_method='GET', factory=ReportGroupFactory)
+    config.add_route('email_report', '/reportgroup/{name}/report/{reportname}/email',
+            request_method='POST', factory=ReportGroupFactory)
     config.add_route('admin', '/admin', factory=Admin, request_method='GET')
     config.add_route('new_user', '/admin/new_user', factory=Admin, request_method='GET')
     config.add_route('create_user', '/admin/create_user', factory=Admin, request_method='POST')

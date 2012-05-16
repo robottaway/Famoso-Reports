@@ -1,3 +1,5 @@
+import transaction
+
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from pyramid.renderers import render
@@ -5,7 +7,10 @@ from pyramid.renderers import render
 from sqlalchemy.exc import DBAPIError
 
 from pyramid_mailer import get_mailer
-from pyramid_mailer.message import Message
+from pyramid_mailer.message import (
+        Message,
+        Attachment,
+        )
 
 from .models import (
     DBSession,
@@ -98,15 +103,19 @@ def reportgroups(request):
         return HTTPFound(location=request.route_path('reportgroup', name=groups[0].name))
     return {'reportgroups': groups}
 
+
 @view_config(route_name='reportgroup', renderer='reportgroup.mak', permission='read')
 def reportgroup(context, request):
     return {'reportgroup':context}
 
+
 @view_config(route_name='report', renderer='report.mak', permission='read')
-def report(context, request):
+def report(reportgroup, request):
     reportname = request.matchdict.get('reportname', None)
-    report = context.findReportNamed(reportname)
-    return {'reportgroup':context, 'report': report}
+    report = reportgroup.findReportNamed(reportname)
+    return {'reportgroup':reportgroup, 'report': report}
+
+
 
 #
 # ADMIN VIEWS
@@ -118,9 +127,11 @@ def admin(request):
     groups = DBSession.query(ReportGroup).all()
     return {'users':users,'groups':groups}
 
+
 @view_config(route_name='new_user', renderer='create_user.mak', permission='read')
 def new_user(request):
     return {}
+
 
 @view_config(route_name='create_user', renderer=None, permission='create')
 def create_user(request):
@@ -157,13 +168,14 @@ def create_user(request):
         DBSession.add(user)
         mailer = get_mailer(request)
         body = render('mail/newuser.mak', {'user':user}, request)
-        message = Message(subject='Famoso Reporting Account for %s' % user.displayName(), 
-                    sender='admin@famosonut.com',
+        message = Message(subject='Famoso Reporting - New Account for %s' % user.displayName(), 
+                    sender='Famoso Admin <admin@famosonut.com>',
                     recipients=[user.email],
                     body=body)
         mailer.send(message)
         return HTTPFound(location=request.route_path('user', username=username))
     return HTTPFound(location=request.route_path('new_user'))
+
 
 @view_config(route_name='update_user_groups', renderer=None, permission='update_groups')
 def update_user_groups(user, request):
@@ -188,9 +200,41 @@ def update_user_groups(user, request):
                 {'user':user,'new_groups':new_groups,'gone_groups':gone_groups}, 
                 request)
     message = Message(subject='New Reports Available', 
-                sender='admin@famosonut.com',
+                sender='Famoso Admin <admin@famosonut.com>',
                 recipients=[user.email],
                 body=body)
     mailer.send(message)
     return HTTPFound(location=request.route_path('user', username=user.username))
+
+
+def email_to(request, usernames, report):
+    """Send the csv and pdf file for report to given users"""
+
+    mailer = get_mailer(request)
+    csv_loc, pdf_loc = report.file_locations(request)
+    csv_attachment = Attachment("%s.csv" % report.name, "text/csv", open(csv_loc, "rb"), 'attachment')
+    pdf_attachment = Attachment("%s.pdf" % report.name, "application/pdf", open(pdf_loc, "rb"), 'attachment')
+
+    for username in usernames:
+        user = DBSession.query(User).filter_by(username=username).first()
+        if not user:
+            continue
+        body = render('mail/report.mak', {'user':user, 'report':report}, request)
+        message = Message(subject='Famoso Reporting - %s' % report.name,
+                    sender='Famoso Admin <admin@famosonut.com>',
+                    recipients=[user.email],
+                    body=body,
+                    attachments=[csv_attachment,pdf_attachment])
+        mailer.send_immediately(message)
+
+
+@view_config(route_name='email_report', renderer=None, permission='email')
+def email_report(reportgroup, request):
+    reportname = request.matchdict.get('reportname', None)
+    report = reportgroup.findReportNamed(reportname)
+    mailto = request.params.getall('mailto')
+    email_to(request, mailto, report)
+    request.session.flash('Email Sent')
+    return HTTPFound(location=request.route_path('report', name=reportgroup.name, reportname=report.name))
+
 

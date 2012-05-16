@@ -31,4 +31,4 @@ zope.interface==3.8.0
 zope.sqlalchemy==0.7
 pyramid_simpleform==0.6.1
 pyramid_beaker==0.6.1
-pyramid_mailer==0.9
+pyramid_mailer==0.6
