@@ -35,5 +35,8 @@ famoso_reports/templates/reportgroup.mak
 famoso_reports/templates/reportgroups.mak
 famoso_reports/templates/signin.mak
 famoso_reports/templates/user.mak
+famoso_reports/templates/mail/adminstatusreport.mak
 famoso_reports/templates/mail/newgroups.mak
+famoso_reports/templates/mail/newreports.mak
 famoso_reports/templates/mail/newuser.mak
+famoso_reports/templates/mail/report.mak
