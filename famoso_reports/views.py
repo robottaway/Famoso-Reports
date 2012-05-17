@@ -97,7 +97,7 @@ def update_user_details(user, request):
     return HTTPFound(location=request.route_path('user', username=user.username))
 
 @view_config(route_name='reportgroups', renderer='reportgroups.mak', permission='read')
-def reportgroups(request):
+def reportgroups(user, request):
     groups = request.user.findReportGroups()
     if len(groups) == 1:
         return HTTPFound(location=request.route_path('reportgroup', name=groups[0].name))
