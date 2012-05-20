@@ -71,6 +71,8 @@ def add_routes(config):
             factory=ReportGroupFactory)
     config.add_route('report', '/reportgroup/{name}/report/{reportname}', 
             request_method='GET', factory=ReportGroupFactory)
+    config.add_route('report_download', '/reportgroup/{name}/download/{file}',
+            request_method='GET', factory=ReportGroupFactory)
     config.add_route('email_report', '/reportgroup/{name}/report/{reportname}/email',
             request_method='POST', factory=ReportGroupFactory)
     config.add_route('admin', '/admin', factory=Admin, request_method='GET')

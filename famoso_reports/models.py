@@ -212,32 +212,54 @@ class Report(Base):
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(256), nullable=False)
     report_group_id = Column(Integer, ForeignKey('reportgroups.id'), nullable=False)
-    usdaid = Column(Unicode(256), nullable=False)
-    grower = Column(Unicode(256), nullable=False)
-    block = Column(Unicode(256), nullable=False)
-    variety = Column(Unicode(256), nullable=False)
-    county = Column(Unicode(256), nullable=False)
-    lot = Column(Unicode(256), nullable=False)
-    commodity = Column(Unicode(256), nullable=False)
-    handler = Column(Unicode(256), nullable=False)
-    certificate = Column(Unicode(256), nullable=False)
-    date_certified = Column(Unicode(256), nullable=False)
-    gross_weight = Column(Integer, nullable=False)
-    edible_kernal_weight = Column(Integer, nullable=False)
-    inedible_kernal_weight = Column(Integer, nullable=False)
-    foreign_material_weight = Column(Integer, nullable=False)
-    shell_out_loss = Column(Integer, nullable=False)
-    excess_moisture = Column(Integer, nullable=False)
-    crop_year = Column(Integer, nullable=False)
-    acres = Column(Float(precision=2), nullable=False)
 
     report_group = relationship('ReportGroup', backref=backref('reports', order_by=id))
 
+    @property
+    def file_names(self):
+        names = []
+        for report_type in self.report_types:
+            names.append("%s%s" % (self.name, report_type.extension))
+        return names
+
+    def file_location_for_type(self, request, ):
+        root = self.report_group.file_location(request)
+        for report_type in self.report_types:
+            if report_type.extension == extension:
+                return "%s/%s%s" % (root, self.name, report_type.extension)
+        return None
+
     def file_locations(self, request):
         root = self.report_group.file_location(request)
-        csv_loc = "%s/%s.csv" % (root, self.name)
-        pdf_loc = "%s/%s.pdf" % (root, self.name)
-        return (csv_loc, pdf_loc)
+        files = []
+        for report_type in self.report_types:
+            files.append("%s/%s%s" % (root, self.name, report_type.extension))
+        return files
+
+    def add_report_type(self, extension):
+        report_type = DBSession.query(ReportType).filter_by(extension=extension).first()
+        if not report_type:
+            report_type = ReportType(extension)
+            DBSession.add(report_type)
+        self.report_types.append(report_type)
+        return report_type
 
     def __init__(self):
         pass
+
+report_report_types = Table('report_report_type', Base.metadata,
+    Column('report_id', Integer, ForeignKey('report.id'), nullable=False),
+    Column('report_type_id', Integer, ForeignKey('report_type.id'), nullable=False),
+    UniqueConstraint('report_id', 'report_type_id', name='report_report_type_uc')
+)
+
+class ReportType(Base):
+    __tablename__ = 'report_type'
+    
+    id = Column(Integer, primary_key=True)
+    extension = Column(String(8), unique=True, nullable=False)
+    reports = relationship('Report', secondary=report_report_types, backref='report_types')
+
+    def __init__(self, extension):
+        self.extension = extension
+

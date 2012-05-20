@@ -3,6 +3,7 @@ import transaction
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from pyramid.renderers import render
+from pyramid.response import FileResponse
 
 from sqlalchemy.exc import DBAPIError
 
@@ -103,11 +104,9 @@ def reportgroups(user, request):
         return HTTPFound(location=request.route_path('reportgroup', name=groups[0].name))
     return {'reportgroups': groups}
 
-
 @view_config(route_name='reportgroup', renderer='reportgroup.mak', permission='read')
 def reportgroup(context, request):
     return {'reportgroup':context}
-
 
 @view_config(route_name='report', renderer='report.mak', permission='read')
 def report(reportgroup, request):
@@ -115,7 +114,14 @@ def report(reportgroup, request):
     report = reportgroup.findReportNamed(reportname)
     return {'reportgroup':reportgroup, 'report': report}
 
-
+@view_config(route_name='report_download', renderer=None, permission='read')
+def report_download(reportgroup, request):
+    f = request.matchdict.get('file', None)
+    reportname = request.matchdict.get('reportname', None)
+    report = reportgroup.findReportNamed(reportname)
+    root = reportgroup.file_location(request)
+    loc = "%s/%s" % (root, f)
+    return FileResponse(loc, request)
 
 #
 # ADMIN VIEWS

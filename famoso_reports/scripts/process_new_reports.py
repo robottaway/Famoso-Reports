@@ -39,31 +39,6 @@ def usage(argv):
     sys.exit(1)
 
 
-def reportFromRow(row):
-    """Create a Report from a csv row"""
-
-    report = Report()
-    report.usdaid = unicode(row[0])
-    report.grower = unicode(row[1])
-    report.block = unicode(row[2])
-    report.variety = unicode(row[3])
-    report.county = unicode(row[4])
-    report.lot = unicode(row[5])
-    report.commodity = unicode(row[6])
-    report.handler = unicode(row[7])
-    report.certificate = unicode(row[8])
-    report.date_certified = unicode(row[9])
-    report.gross_weight = int(row[10])
-    report.edible_kernal_weight = int(row[11])
-    report.inedible_kernal_weight = int(row[12])
-    report.foreign_material_weight = int(row[13])
-    report.shell_out_loss = int(row[14])
-    report.excess_moisture = int(row[15])
-    report.crop_year = int(row[16])
-    report.acres = float(row[17])
-    return report
-
-
 def handleReportFolder(reportFolder, report_group):
     """Crawl report group folder and find new reports"""
 
@@ -71,25 +46,21 @@ def handleReportFolder(reportFolder, report_group):
     for root, subFolders, files in os.walk(reportFolder):
         for file in files:
             name, extension = os.path.splitext(file)
-            if extension == '.csv':
-                pdf_file_name = ''.join([name, '.pdf'])
-                if not os.path.exists(os.path.join(root, pdf_file_name)):
-                    print "Matching pdf file does not exist for csv file '%s'" % file
-                    csv_files_missing_pdf.append(os.join([root, file]))
-                    continue
-                report = report_group.findReportNamed(name)
-                if not report:
-                    full_path = os.path.join(root, file)
-                    csvreader = csv.reader(open(full_path, 'rb'), delimiter=',', quotechar='\'')
-                    csvreader.next() # burn the header
-                    values = csvreader.next()
-                    report = reportFromRow(values)
-                    report.name = unicode(name)
-                    report.report_group = report_group
-                    DBSession.add(report)
-                    groups_new_reports.setdefault(report_group, []).append(report)
-                    for user in report_group.findAllUsers():
-                        user_new_reports.setdefault(user, []).append(report)
+            
+            if not extension:
+                continue
+
+            report = report_group.findReportNamed(name)
+            if not report:
+                report = Report()
+                report.name = unicode(name)
+                report.report_group = report_group
+                DBSession.add(report)
+                groups_new_reports.setdefault(report_group, []).append(report)
+                for user in report_group.findAllUsers():
+                    user_new_reports.setdefault(user, []).append(report)
+
+            report.add_report_type(extension)
 
 
 def handleRootFolder(rootFolder):
@@ -171,12 +142,11 @@ def main(argv=sys.argv):
     except Exception as e:
         transaction.abort()
         stack = traceback.format_exc()
-	print e
-	print stack
+        print stack
         body = "Got an exception while processing reports: %s\n\n%s" % (e, stack)
         message = Message(subject='Famoso Reports - failed to process', 
                     sender='admin@famosonut.com',
                     recipients=['robottaway@gmail.com'],
                     body=body)
-        mailer.send_immediately(message)
+#        mailer.send_immediately(message)
 	
