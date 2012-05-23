@@ -7,6 +7,7 @@
 // Import all the default blueprint modules so that we can access their mixins.
 @import "blueprint";
 @import "blueprint/buttons";
+@import "blueprint/form";
 
 // Import the non-default scaffolding module.
 @import "blueprint/scaffolding";
@@ -59,36 +60,8 @@
   }
 }
 
-// If you are doing a lot of stylesheet concatenation, it is suggested
-// that you scope your blueprint styles, so that you can better control
-// what pages use blueprint when stylesheets are concatenated together.
-body.bp {
-  @include blueprint-typography(true);
-  @include blueprint-utilities;
-  @include blueprint-debug;
-  @include blueprint-interaction;
-  // Remove the scaffolding when you're ready to start doing visual design.
-  // Or leave it in if you're happy with how blueprint looks out-of-the-box
-  padding: 20px;
-  div#header {
-    $size: 16px;
-    font-size: $size;
-    @include good_links($size);
-  }
-  div.breadcrumb {
-    $size: 16px;
-    font-size: $size;
-    @include good_links($size);
-  }
-  ul.links {
-    @include good_links(16px);
-  }
-  @include good_links(16px);
-  @include nice_form(140px);
-}
-
 form#signin {
-  @include nice_form(60px);
+  @include nice_form(80px);
 }
 
 button {
@@ -108,3 +81,182 @@ button {
     background: #0064CD;
   }
 }
+
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+@import "compass/typography/links/link-colors";
+@import "compass/typography/links/unstyled-link";
+
+@charset "utf-8";
+
+body {
+  @include blueprint(true);
+  @include good_links(16px);
+  @include nice_form(180px);
+  margin: 0;
+  text-align: center;
+  /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #eee4b1;
+  background-repeat: repeat-x;
+  background-image: url(/static/images/BG3.jpg);
+  padding-top: 30px;
+  padding-right: 0px;
+  padding-bottom: 30px;
+  padding-left: 0px;
+  background-attachment: fixed; 
+  ul {
+  }
+}
+
+.Footer {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12pt;
+  font-style: italic; }
+
+#wrapper {
+  background-repeat: repeat-x;
+  background-position: center 450px;
+  left: 0px; }
+
+#container {
+  width: 876px;
+  /* using 20px less than a full 800px width allows for browser chrome and avoids a horizontal scroll bar */
+  background: #FFFFFF;
+  text-align: center;
+  border: 13px solid #84C55C;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto;
+  padding-top: 10px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px; }
+
+#header {
+  position: relative;
+  text-align: left;
+  height: 220px;
+  padding-top: 0;
+  > img {
+    width: 470px;
+    height: 220px; }
+  h1 {
+    margin: 0;
+    /* zeroing the margin of the last element in the #header div will avoid margin collapse - an unexplainable space between divs. If the div has a border around it, this is not necessary as that also avoids the margin collapse */
+    padding: 0; } }
+
+.Header2 {
+    text-align: center;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 24px; }
+
+#nav {
+  background-color: #FFF;
+  padding-top: 0px;
+  padding-right: 0;
+  padding-bottom: 0px;
+  padding-left: 0;
+  margin: 0px;
+  height: 31px;
+  a {
+      text-decoration: none;
+      @include link-colors(#000); }
+  a:hover div {
+    background-position: 0 -33px; }
+  div {
+    float: left;
+    width: 146px;
+    height: 27px;
+    padding: 6px 0 0 0;
+    background-image: url(/static/images/navbutton.jpg);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 146px 66px;
+    font: italic bold 15px Arial,Helvetica,sans-serif;
+    text-align: center; } }
+
+#mainContent {
+  padding: 10px;
+  font-family: Georgia,"Times New Roman",Times,serif;
+  font-size: 14px;
+  text-align: left; 
+}
+
+.second {
+  padding: 20px 20px 50px 20px;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-image: url(/static/images/Gradient_BG.jpg); }
+
+.MC_Header {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  font-style: italic; }
+
+div#splash_img {
+  background-repeat: no-repeat;
+  background-position: center top;
+  padding-top: 20px;
+  height: 231px;
+  background-image: url(/img/splash.jpg);
+  padding-bottom: 0px;
+  margin-bottom: 0px; }
+
+p.mission {
+  font-style: italic;
+  padding: 0 80px 0 80px;
+  margin: 0 0 20px 0;
+  font-family: Georgia,"Times New Roman",Times,serif;
+  font-size: 12pt;
+  text-align: center; }
+
+.Image {
+  border-top-width: 2px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  margin: 15px; }
+
+.clrb {
+    clear: both; }
+
+.contact_table {
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	background-color: #9B9B9B;
+	font-family: Georgia, "Times New Roman", Times, serif; }
+
+#map {
+	width: 700px;
+	position: relative;
+	margin-right: 78px;
+	margin-left: 78px;
+	text-align: center;
+	border: 10px solid #9B9B9B;
+	-moz-border-radius: 15px;
+    -webkit-border-radius: 15px; }
+
+#slideshow {
+    img {
+        display: none;
+    }
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    top: 0px;
+    left: 540px; }

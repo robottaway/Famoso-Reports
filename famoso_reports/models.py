@@ -222,7 +222,7 @@ class Report(Base):
             names.append("%s%s" % (self.name, report_type.extension))
         return names
 
-    def file_location_for_type(self, request, ):
+    def file_location_for_type(self, request, extension):
         root = self.report_group.file_location(request)
         for report_type in self.report_types:
             if report_type.extension == extension:

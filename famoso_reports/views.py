@@ -1,4 +1,5 @@
-import transaction
+import re
+import os
 
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
@@ -19,6 +20,7 @@ from .models import (
     ReportGroup,
     PASSWORD_MIN_LENGTH,
     USERNAME_MIN_LENGTH,
+    EMAIL_REGEX,
     )
 
 @view_config(route_name='home', renderer='signin.mak', permission='read')
@@ -112,15 +114,19 @@ def reportgroup(context, request):
 def report(reportgroup, request):
     reportname = request.matchdict.get('reportname', None)
     report = reportgroup.findReportNamed(reportname)
+    if not report:
+        return HTTPNotFound()
     return {'reportgroup':reportgroup, 'report': report}
 
 @view_config(route_name='report_download', renderer=None, permission='read')
 def report_download(reportgroup, request):
     f = request.matchdict.get('file', None)
     reportname = request.matchdict.get('reportname', None)
-    report = reportgroup.findReportNamed(reportname)
+    reportgroup.findReportNamed(reportname)
     root = reportgroup.file_location(request)
     loc = "%s/%s" % (root, f)
+    if not os.path.exists(loc):
+        return HTTPNotFound()
     return FileResponse(loc, request)
 
 #
