@@ -85,8 +85,11 @@ def email_users(request, mailer):
     for user in user_new_reports.keys():
         if user.admin:
             continue
+        new_reports = user_new_reports.get(user, None)
+        if not new_reports:
+            continue
         body = render('mail/newreports.mak', 
-                {'user':user, 'user_new_reports':user_new_reports}, 
+                {'user':user, 'new_reports':new_reports}, 
                 request)
         message = Message(subject='Famoso Reports - New Reports', 
                     sender='Famoso Admin <admin@famosonut.com>',
@@ -142,11 +145,10 @@ def main(argv=sys.argv):
     except Exception as e:
         transaction.abort()
         stack = traceback.format_exc()
-        print stack
         body = "Got an exception while processing reports: %s\n\n%s" % (e, stack)
         message = Message(subject='Famoso Reports - failed to process', 
                     sender='admin@famosonut.com',
                     recipients=['robottaway@gmail.com'],
                     body=body)
-#        mailer.send_immediately(message)
+        mailer.send_immediately(message)
 	
