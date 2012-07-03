@@ -13,6 +13,7 @@ from .models import (
     ReportGroupFactory,
     )
 from famoso_reports.security import FamosoAuthenticationPolicy
+from famoso_reports.views import forbidden
 
 def get_user(request):
     # the below line is just an example, use your own method of
@@ -48,6 +49,9 @@ def main(global_config, **settings):
     add_routes(config)
 
     config.scan('famoso_reports.views')
+
+    config.add_forbidden_view(forbidden)
+
     return config.make_wsgi_app()
 
 
