@@ -2,7 +2,7 @@ import re
 import os
 
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPFound, HTTPNotFound
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPForbidden
 from pyramid.renderers import render
 from pyramid.response import FileResponse
 
@@ -109,6 +109,8 @@ def update_user_details(user, request):
 
 @view_config(route_name='reportgroups', renderer='reportgroups.mak', permission='read')
 def reportgroups(user, request):
+    if not request.user:
+	return HTTPForbidden('You must be signed in to access this resource')
     groups = request.user.findReportGroups()
     if len(groups) == 1:
         return HTTPFound(location=request.route_path('reportgroup', name=groups[0].name))
@@ -258,3 +260,7 @@ def email_report(reportgroup, request):
     return HTTPFound(location=request.route_path('report', name=reportgroup.name, reportname=report.name))
 
 
+@view_config(route_name='error', renderer=None)
+def error(request):
+    """To Test email of exceptions works"""
+    raise Exception('blah')
