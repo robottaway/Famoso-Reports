@@ -235,9 +235,11 @@ def email_to(request, usernames, report):
     """Send the csv and pdf file for report to given users"""
 
     mailer = get_mailer(request)
-    csv_loc, pdf_loc = report.file_locations(request)
-    csv_attachment = Attachment("%s.csv" % report.name, "text/csv", open(csv_loc, "rb"), 'attachment')
-    pdf_attachment = Attachment("%s.pdf" % report.name, "application/pdf", open(pdf_loc, "rb"), 'attachment')
+    files = report.file_locations(request)
+    attachments = []
+    for location, filename, extension, mime in files:
+        attachment = Attachment(filename, mime, open(location, "rb"), 'attachment')
+        attachments.append(attachment)
 
     for username in usernames:
         user = DBSession.query(User).filter_by(username=username).first()
@@ -248,7 +250,7 @@ def email_to(request, usernames, report):
                     sender='Famoso Admin <admin@famosonut.com>',
                     recipients=[user.email],
                     body=body,
-                    attachments=[csv_attachment,pdf_attachment])
+                    attachments=attachments)
         mailer.send_immediately(message)
 
 

@@ -233,8 +233,18 @@ class Report(Base):
         root = self.report_group.file_location(request)
         files = []
         for report_type in self.report_types:
-            files.append("%s/%s%s" % (root, self.name, report_type.extension))
+            filename = "%s%s" % (self.name, report_type.extension)
+            location = "%s/%s%s" % (root, self.name, report_type.extension)
+            mime = self.mime_for_extension(report_type.extension)
+            files.append((location, filename, report_type.extension, mime))
         return files
+
+    def mime_for_extension(self, ext):
+        if ext == 'csv':
+            return 'text/csv'
+        if ext == 'pdf':
+            return 'application/pdf'
+        return 'application/octet-stream'
 
     def add_report_type(self, extension):
         report_type = DBSession.query(ReportType).filter_by(extension=extension).first()
