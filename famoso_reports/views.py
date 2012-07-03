@@ -183,6 +183,8 @@ def create_user(request):
     email = request.params.get('email', None)
     if not email:
         request.session.flash('You must include an email')
+    if DBSession.query(User).filter(User.email == email).count():
+        request.session.flash("The email '%s' is already in use by another account" % email)
     admin = True if request.params.get('admin', None) else False
     if not request.session.peek_flash():
         user = User(username, password, email, admin, first_name, last_name)
