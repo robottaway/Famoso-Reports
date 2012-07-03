@@ -260,3 +260,7 @@ def email_report(reportgroup, request):
     return HTTPFound(location=request.route_path('report', name=reportgroup.name, reportname=report.name))
 
 
+@view_config(route_name='error', renderer=None)
+def error(request):
+    """To Test email of exceptions works"""
+    raise Exception('blah')

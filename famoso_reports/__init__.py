@@ -82,4 +82,5 @@ def add_routes(config):
     config.add_route('admin', '/admin', factory=Admin, request_method='GET')
     config.add_route('new_user', '/admin/new_user', factory=Admin, request_method='GET')
     config.add_route('create_user', '/admin/create_user', factory=Admin, request_method='POST')
+    config.add_route('error', '/error', request_method='GET')
 
