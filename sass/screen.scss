@@ -94,7 +94,7 @@ button {
 body {
   @include blueprint(true);
   @include good_links(16px);
-  @include nice_form(180px);
+  @include nice_form(140px);
   margin: 0;
   text-align: center;
   /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
@@ -133,8 +133,8 @@ body {
   margin-bottom: 0;
   margin-left: auto;
   padding-top: 10px;
-  -moz-border-radius: 30px;
-  -webkit-border-radius: 30px; }
+  @include border-radius(15px);
+}
 
 #header {
   position: relative;
@@ -248,8 +248,8 @@ p.mission {
 	margin-left: 78px;
 	text-align: center;
 	border: 10px solid #9B9B9B;
-	-moz-border-radius: 15px;
-    -webkit-border-radius: 15px; }
+    @include border-radius(15px);
+}
 
 #slideshow {
     img {

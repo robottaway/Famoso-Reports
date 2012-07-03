@@ -1339,7 +1339,7 @@ body fieldset ul li label, body fieldset ul li input, body fieldset ul li div, b
 }
 /* line 31, ../../../sass/screen.scss */
 body fieldset ul li label:first-child {
-  width: 180px;
+  width: 140px;
   padding: 9px 5px 0 0;
   text-align: right;
 }
@@ -1359,7 +1359,7 @@ body fieldset ul li span {
 }
 /* line 47, ../../../sass/screen.scss */
 body fieldset ul li button {
-  margin: 6px 0 0 184px;
+  margin: 6px 0 0 144px;
 }
 
 /* line 115, ../../../sass/screen.scss */
@@ -1388,8 +1388,11 @@ body fieldset ul li button {
   margin-bottom: 0;
   margin-left: auto;
   padding-top: 10px;
-  -moz-border-radius: 30px;
-  -webkit-border-radius: 30px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  border-radius: 15px;
 }
 
 /* line 139, ../../../sass/screen.scss */
@@ -1536,8 +1539,11 @@ p.mission {
   margin-left: 78px;
   text-align: center;
   border: 10px solid #9B9B9B;
-  -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  border-radius: 15px;
 }
 
 /* line 254, ../../../sass/screen.scss */
