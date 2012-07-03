@@ -23,6 +23,14 @@ from .models import (
     EMAIL_REGEX,
     )
 
+def forbidden(request):
+    """If no user send them to log in, otherwise
+    just re-raise the exception
+    """
+    if not request.user:
+        return HTTPFound(location=request.route_path('signin'))
+    raise request.exception
+
 @view_config(route_name='home', renderer='signin.mak', permission='read')
 @view_config(route_name='signin', renderer='signin.mak', permission='read')
 def signin(request):
