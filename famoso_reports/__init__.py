@@ -73,6 +73,8 @@ def add_routes(config):
     config.add_route('reportgroups', '/reportgroup', request_method='GET')
     config.add_route('reportgroup', '/reportgroup/{name}', request_method='GET',
             factory=ReportGroupFactory)
+    config.add_route('rename_reportgroup', '/reportgroup/{name}/rename', request_method='POST',
+            factory=ReportGroupFactory)
     config.add_route('report', '/reportgroup/{name}/report/{reportname}', 
             request_method='GET', factory=ReportGroupFactory)
     config.add_route('report_download', '/reportgroup/{name}/download/{file}',

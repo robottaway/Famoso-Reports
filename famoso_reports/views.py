@@ -117,8 +117,8 @@ def reportgroups(user, request):
     return {'reportgroups': groups}
 
 @view_config(route_name='reportgroup', renderer='reportgroup.mak', permission='read')
-def reportgroup(context, request):
-    return {'reportgroup':context}
+def reportgroup(reportgroup, request):
+    return {'reportgroup':reportgroup}
 
 @view_config(route_name='report', renderer='report.mak', permission='read')
 def report(reportgroup, request):
@@ -154,6 +154,20 @@ def admin(request):
 def new_user(request):
     return {}
 
+@view_config(route_name="rename_reportgroup", renderer=None, permission='create')
+def rename_reportgroup(reportgroup, request):
+    name = request.params.get('newname', None)
+    if not name:
+        request.session.flash('You must include a new name')
+    elif len(name) > 256:
+        request.session.flash('New name can have a maximum of 256 characters')
+    else:
+	if reportgroup.displayname != name:
+            reportgroup.displayname = name
+            request.session.flash('Name updated')
+        else:
+            request.session.flash('Name not changed')
+    return HTTPFound(location=request.route_path('reportgroup', name=reportgroup.name))
 
 @view_config(route_name='create_user', renderer=None, permission='create')
 def create_user(request):
