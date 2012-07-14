@@ -13,7 +13,6 @@ from sqlalchemy import (
     Boolean,
     Table,
     ForeignKey,
-    Float,
     )
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.ext.declarative import declarative_base
@@ -273,3 +272,15 @@ class ReportType(Base):
     def __init__(self, extension):
         self.extension = extension
 
+class ReportAttribute(Base):
+    __tablename__ = 'report_attribute'
+
+    id = Column(Integer, primary_key=True)
+    report_id = Column(Integer, ForeignKey('reportgroups.id'), nullable=False)
+    name = Column(Unicode(255), nullable=False)
+    value = Column(Unicode(255), nullable=False)
+
+    report = relationship('Report', backref=backref('attributes', order_by=id))
+
+    def __init__(self):
+        pass

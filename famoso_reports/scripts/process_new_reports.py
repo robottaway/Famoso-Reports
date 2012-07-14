@@ -38,8 +38,16 @@ def usage(argv):
           '(example: "%s development.ini")' % (cmd, cmd)) 
     sys.exit(1)
 
+def handleCsvData(request, report_group, report):
+    location = report.file_location_for_type(request, '.csv')
+    print "got csv: ", location
+    fd = open(location, 'r')
+    csvr = csv.reader(fd, delimiter=',')
+    colnames = csvr.next()
+    values = csvr.next()
+    d = dict(zip(colnames, values))
 
-def handleReportFolder(reportFolder, report_group):
+def handleReportFolder(request, reportFolder, report_group):
     """Crawl report group folder and find new reports"""
 
     global groups_new_reports, user_new_reports, csv_files_missing_pdf
@@ -60,11 +68,14 @@ def handleReportFolder(reportFolder, report_group):
                 for user in report_group.findAllUsers():
                     user_new_reports.setdefault(user, []).append(report)
 
+            if extension == '.csv':
+                handleCsvData(request, report_group, report)
             report.add_report_type(extension)
 
 
-def handleRootFolder(rootFolder):
+def handleRootFolder(request, rootFolder):
     global new_groups
+
     for root, subFolders, files in os.walk(rootFolder):
         for folder in subFolders:
             report_group = DBSession.query(ReportGroup).filter_by(name=unicode(folder)).first()
@@ -73,7 +84,7 @@ def handleRootFolder(rootFolder):
                 new_groups.append(report_group)
                 DBSession.add(report_group)
             reportFolder = os.path.join(root, folder)
-            handleReportFolder(reportFolder, report_group)
+            handleReportFolder(request, reportFolder, report_group)
 
 
 def email_users(request, mailer):
@@ -138,7 +149,7 @@ def main(argv=sys.argv):
     request = env['request']
 
     try:
-        handleRootFolder(rootFolder)
+        handleRootFolder(request, rootFolder)
         email_users(request, mailer)
         email_admin_users(request, mailer)
         transaction.commit()
