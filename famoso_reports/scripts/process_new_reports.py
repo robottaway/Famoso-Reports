@@ -67,15 +67,17 @@ def handleReportFolder(request, reportFolder, report_group):
                 report.name = unicode(name)
                 report.displayname = unicode(name)
                 report.report_group = report_group
+                report.add_report_type(extension)
                 DBSession.add(report)
+
                 groups_new_reports.setdefault(report_group, []).append(report)
                 for user in report_group.findAllUsers():
                     user_new_reports.setdefault(user, []).append(report)
+            else:
+                report.add_report_type(extension)
 
             if extension == '.meta':
                 handleMetadata(request, report_group, report)
-
-            report.add_report_type(extension)
 
 
 def handleRootFolder(request, rootFolder):

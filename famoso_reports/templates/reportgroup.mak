@@ -30,7 +30,7 @@ ${self.flash()}
 </form>
 % endif
 
-% if len(fatts.keys()) > 0:
+% if len(fatts.keys()) > 0 or len(request.params.keys()) > 0:
 <form class="readonly">
 <fieldset>
 <legend>Filter reports by attributes</legend>
