@@ -22,6 +22,7 @@ from sqlalchemy.orm import (
     relationship,
     backref,
     )
+from sqlalchemy.sql import select
 from sqlalchemy.schema import UniqueConstraint
 
 from zope.sqlalchemy import ZopeTransactionExtension
@@ -180,6 +181,17 @@ class ReportGroup(Base):
         group_loc = "%s/%s" % (root, self.name)
         return group_loc
 
+    def filterable_attributes(self):
+        atts = DBSession.query(ReportAttribute.name, ReportAttribute.value) \
+            .outerjoin(Report, Report.id==ReportAttribute.report_id) \
+            .outerjoin(ReportGroup, ReportGroup.id==Report.report_group_id) \
+            .filter(ReportGroup.id==self.id) \
+            .distinct().all()
+        combined = {}
+        for att in atts:
+            combined.setdefault(att.name, []).append(att.value)
+        return combined
+
 def ReportGroupFactory(request):
     name = request.matchdict.get('name', None)
     if not name:
@@ -256,14 +268,20 @@ class Report(Base):
 
     def add_or_update_attribute(self, name, value):
         if name == 'ReportName':
-            self.displayname = value
+            self.displayname = unicode(value)
             return
         for att in self.attributes:
             if att.name == name:
-                att.value = value
+                att.value = unicode(value)
                 return
         att = ReportAttribute(name, value)
         self.attributes.append(att)
+
+    def has_att_with_value(self, name, value):
+        for att in self.attributes:
+            if att.name == name and att.value == value:
+                return True
+        return False
 
     def __init__(self):
         pass
@@ -298,5 +316,5 @@ class ReportAttribute(Base):
     report = relationship('Report', backref=backref('attributes', order_by=id))
 
     def __init__(self, name, value):
-        self.name = name
-        self.value = value
+        self.name = unicode(name)
+        self.value = unicode(value)

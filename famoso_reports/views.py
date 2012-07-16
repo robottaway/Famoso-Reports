@@ -118,7 +118,28 @@ def reportgroups(user, request):
 
 @view_config(route_name='reportgroup', renderer='reportgroup.mak', permission='read')
 def reportgroup(reportgroup, request):
-    return {'reportgroup':reportgroup}
+    cropyear = request.params.get('CropYear', None)
+    reporttype = request.params.get('ReportType', None)
+    reports = reportgroup.reports
+    fatts = reportgroup.filterable_attributes()
+
+    if cropyear:
+        del fatts['CropYear'] 
+        filtered = []
+        for report in reports:
+            if report.has_att_with_value('CropYear', cropyear):
+                filtered.append(report)
+        reports = filtered
+
+    if reporttype:
+        del fatts['ReportType'] 
+        filtered = []
+        for report in reports:
+            if report.has_att_with_value('ReportType', reporttype):
+                filtered.append(report)
+        reports = filtered
+
+    return {'reportgroup':reportgroup, 'reports':reports, 'fatts':fatts}
 
 @view_config(route_name='report', renderer='report.mak', permission='read')
 def report(reportgroup, request):

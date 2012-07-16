@@ -1,3 +1,15 @@
+<%
+from pyramid.url import urlencode
+
+def querymake(request, name, value):
+	part = urlencode(request.params)
+	if len(part) > 0:
+		new = "%s=%s" % (name, value)
+		part = "?%s&%s" % (part, new)
+	else:
+		part = "?%s=%s" % (name, value)
+	return part
+%>
 % if len(request.user.findReportGroups()) > 1:
 <div class="breadcrumb">
 	<a href="${request.route_path('reportgroups')}">Back to Report Groups</a>
@@ -20,9 +32,25 @@ ${self.flash()}
 
 <form class="readonly">
 <fieldset>
+<legend>Filter reports by attributes</legend>
+% if len(request.params.keys()) > 0:
+<div><a href="${request.route_path('reportgroup', name=reportgroup.name)}">Clear Filter</a></div>
+% endif
+% for name, values in fatts.items():
+<p><h5>${name}</h5><div>
+% for value in values:
+<span><a href="${request.route_path('reportgroup', name=reportgroup.name)}${querymake(request, name, value)}">${value}</a></span>
+% endfor
+</div></p>
+% endfor
+</fieldset>
+</form>
+
+<form class="readonly">
+<fieldset>
 <legend>${reportgroup.displayname}</legend>
 <ul>
-% for report in reportgroup.reports:
+% for report in reports:
 	<li><a href="${request.route_path('report', name=reportgroup.name, reportname=report.name)}">${report.displayname}</a></li>
 % endfor
 </ul>
