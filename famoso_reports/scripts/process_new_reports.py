@@ -65,6 +65,7 @@ def handleReportFolder(request, reportFolder, report_group):
             if not report:
                 report = Report()
                 report.name = unicode(name)
+                report.displayname = unicode(name)
                 report.report_group = report_group
                 DBSession.add(report)
                 groups_new_reports.setdefault(report_group, []).append(report)
@@ -73,6 +74,7 @@ def handleReportFolder(request, reportFolder, report_group):
 
             if extension == '.meta':
                 handleMetadata(request, report_group, report)
+
             report.add_report_type(extension)
 
 
