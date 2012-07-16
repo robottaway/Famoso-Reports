@@ -253,6 +253,14 @@ class Report(Base):
         self.report_types.append(report_type)
         return report_type
 
+    def add_or_update_attribute(self, name, value):
+        for att in self.attributes:
+            if att.name == name:
+                att.value = value
+                return
+        att = ReportAttribute(name, value)
+        self.attributes.append(att)
+
     def __init__(self):
         pass
 
@@ -274,13 +282,17 @@ class ReportType(Base):
 
 class ReportAttribute(Base):
     __tablename__ = 'report_attribute'
+    __table_args__ = (
+        UniqueConstraint('report_id', 'name', name='report_name_uc'),
+    )
 
     id = Column(Integer, primary_key=True)
-    report_id = Column(Integer, ForeignKey('reportgroups.id'), nullable=False)
+    report_id = Column(Integer, ForeignKey('report.id'), nullable=False)
     name = Column(Unicode(255), nullable=False)
     value = Column(Unicode(255), nullable=False)
 
     report = relationship('Report', backref=backref('attributes', order_by=id))
 
-    def __init__(self):
-        pass
+    def __init__(self, name, value):
+        self.name = name
+        self.value = value

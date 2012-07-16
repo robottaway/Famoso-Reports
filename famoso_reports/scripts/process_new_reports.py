@@ -38,14 +38,17 @@ def usage(argv):
           '(example: "%s development.ini")' % (cmd, cmd)) 
     sys.exit(1)
 
-def handleCsvData(request, report_group, report):
-    location = report.file_location_for_type(request, '.csv')
-    print "got csv: ", location
+
+def handleMetadata(request, report_group, report):
+    location = report.file_location_for_type(request, '.meta')
     fd = open(location, 'r')
     csvr = csv.reader(fd, delimiter=',')
     colnames = csvr.next()
     values = csvr.next()
     d = dict(zip(colnames, values))
+    for k, v in d.items():
+        report.add_or_update_attribute(k, v)
+
 
 def handleReportFolder(request, reportFolder, report_group):
     """Crawl report group folder and find new reports"""
@@ -68,8 +71,8 @@ def handleReportFolder(request, reportFolder, report_group):
                 for user in report_group.findAllUsers():
                     user_new_reports.setdefault(user, []).append(report)
 
-            if extension == '.csv':
-                handleCsvData(request, report_group, report)
+            if extension == '.meta':
+                handleMetadata(request, report_group, report)
             report.add_report_type(extension)
 
 
