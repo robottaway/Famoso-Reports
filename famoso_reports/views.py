@@ -132,10 +132,10 @@ def reportgroup(reportgroup, request):
         reports = filtered
 
     if reporttype:
-        del fatts['ReportType'] 
+        del fatts['ReportGroup'] 
         filtered = []
         for report in reports:
-            if report.has_att_with_value('ReportType', reporttype):
+            if report.has_att_with_value('ReportGroup', reporttype):
                 filtered.append(report)
         reports = filtered
 
