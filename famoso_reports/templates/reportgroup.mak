@@ -30,6 +30,7 @@ ${self.flash()}
 </form>
 % endif
 
+% if len(fatts.keys()) > 0:
 <form class="readonly">
 <fieldset>
 <legend>Filter reports by attributes</legend>
@@ -45,6 +46,7 @@ ${self.flash()}
 % endfor
 </fieldset>
 </form>
+% endif
 
 <form class="readonly">
 <fieldset>
