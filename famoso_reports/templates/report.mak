@@ -5,7 +5,7 @@ ${self.flash()}
 </div>
 
 <fieldset>
-<legend>Files</legend>
+<legend>Files for report ${report.displayname}</legend>
 <ul>
 % for file in report.file_names:
 <li><a href="${request.route_url('report_download', name=reportgroup.name, file=file)}">${file}</a></li>

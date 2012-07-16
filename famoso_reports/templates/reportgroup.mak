@@ -23,7 +23,7 @@ ${self.flash()}
 <legend>${reportgroup.displayname}</legend>
 <ul>
 % for report in reportgroup.reports:
-	<li><a href="${request.route_path('report', name=reportgroup.name, reportname=report.name)}">${report.name}</a></li>
+	<li><a href="${request.route_path('report', name=reportgroup.name, reportname=report.name)}">${report.displayname}</a></li>
 % endfor
 </ul>
 </fieldset>

@@ -210,6 +210,7 @@ class Report(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(256), nullable=False)
+    displayname = Column(Unicode(256), nullable=False)
     report_group_id = Column(Integer, ForeignKey('reportgroups.id'), nullable=False)
 
     report_group = relationship('ReportGroup', backref=backref('reports', order_by=id))
@@ -254,6 +255,9 @@ class Report(Base):
         return report_type
 
     def add_or_update_attribute(self, name, value):
+        if name == 'ReportName':
+            self.displayname = value
+            return
         for att in self.attributes:
             if att.name == name:
                 att.value = value
