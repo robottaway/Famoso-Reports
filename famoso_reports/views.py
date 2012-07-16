@@ -119,7 +119,7 @@ def reportgroups(user, request):
 @view_config(route_name='reportgroup', renderer='reportgroup.mak', permission='read')
 def reportgroup(reportgroup, request):
     cropyear = request.params.get('CropYear', None)
-    reporttype = request.params.get('ReportType', None)
+    reporttype = request.params.get('ReportGroup', None)
     reports = reportgroup.reports
     fatts = reportgroup.filterable_attributes()
 
