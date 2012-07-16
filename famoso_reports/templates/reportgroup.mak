@@ -34,14 +34,14 @@ ${self.flash()}
 <fieldset>
 <legend>Filter reports by attributes</legend>
 % if len(request.params.keys()) > 0:
-<div><a href="${request.route_path('reportgroup', name=reportgroup.name)}">Clear Filter</a></div>
+<p><a href="${request.route_path('reportgroup', name=reportgroup.name)}">Clear Filter</a></p>
 % endif
 % for name, values in fatts.items():
-<p><h5>${name}</h5><div>
+<p><strong>${name}</strong><br/>
 % for value in values:
-<span><a href="${request.route_path('reportgroup', name=reportgroup.name)}${querymake(request, name, value)}">${value}</a></span>
+<span><a href="${request.route_path('reportgroup', name=reportgroup.name)}${querymake(request, name, value)}">${value}</a>&nbsp;&nbsp;</span>
 % endfor
-</div></p>
+</p>
 % endfor
 </fieldset>
 </form>
