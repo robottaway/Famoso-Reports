@@ -10,6 +10,7 @@ def querymake(request, name, value):
 		part = "?%s=%s" % (name, value)
 	return part
 %>
+
 % if len(request.user.findReportGroups()) > 1:
 <div class="breadcrumb">
 	<a href="${request.route_path('reportgroups')}">Back to Report Groups</a>
@@ -35,7 +36,13 @@ ${self.flash()}
 <fieldset>
 <legend>Filter reports by attributes</legend>
 % if len(request.params.keys()) > 0:
-<p><a href="${request.route_path('reportgroup', name=reportgroup.name)}">Clear Filter</a></p>
+<p>
+<strong>Filters applied</strong><br/>
+% for name, value in request.params.items():
+${name} = ${value}<br/>
+% endfor
+<a href="${request.route_path('reportgroup', name=reportgroup.name)}">Clear Filter(s)</a>
+</p>
 % endif
 % for name, values in fatts.items():
 <p><strong>${name}</strong><br/>
