@@ -22,7 +22,6 @@ from sqlalchemy.orm import (
     relationship,
     backref,
     )
-from sqlalchemy.sql import select
 from sqlalchemy.schema import UniqueConstraint
 
 from zope.sqlalchemy import ZopeTransactionExtension
@@ -158,6 +157,7 @@ class ReportGroup(Base):
     displayname = Column(Unicode(256), unique=True, nullable=False)
 
     users = relationship('User', secondary=report_group_users, backref='report_groups')
+    reports = relationship('Report', backref="report_group", cascade="all, delete, delete-orphan")
     
     def __init__(self, name=None, displayname=None): 
         self.name = name
@@ -225,7 +225,7 @@ class Report(Base):
     displayname = Column(Unicode(256), nullable=False)
     report_group_id = Column(Integer, ForeignKey('reportgroups.id'), nullable=False)
 
-    report_group = relationship('ReportGroup', backref=backref('reports', order_by=id))
+    attributes = relationship('ReportAttribute', backref='report', cascade='all, delete, delete-orphan')
 
     @property
     def file_names(self):
@@ -313,7 +313,7 @@ class ReportAttribute(Base):
     name = Column(Unicode(255), nullable=False)
     value = Column(Unicode(255), nullable=False)
 
-    report = relationship('Report', backref=backref('attributes', order_by=id))
+#    report = relationship('Report', backref=backref('attributes', order_by=id))
 
     def __init__(self, name, value):
         self.name = unicode(name)

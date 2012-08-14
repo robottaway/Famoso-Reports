@@ -139,6 +139,27 @@ def email_admin_users(request, mailer):
         mailer.send(message)
 
 
+def remove_groups(request):
+    groups = DBSession.query(ReportGroup).all() 
+    for group in groups:
+        loc = group.file_location(request)
+        if not os.path.exists(loc):
+            print "Deleting group %s" % group.name
+            DBSession.delete(group)
+
+
+def remove_reports(request):
+    reports = DBSession.query(Report).all()
+    for report in reports:
+        has_any = False
+        for loc, _, _, _ in report.file_locations(request):
+            if os.path.exists(loc):
+                has_any = True
+                break
+        if not has_any:
+            DBSession.delete(report)
+
+
 def main(argv=sys.argv):
     if len(argv) != 2:
         usage(argv)
@@ -154,8 +175,10 @@ def main(argv=sys.argv):
     request = Request.blank('/', base_url=settings['reports.app.url'])
     env = bootstrap(config_uri, request=request)
     request = env['request']
-
+    
     try:
+        remove_groups(request)
+        remove_reports(request)
         handleRootFolder(request, rootFolder)
         email_users(request, mailer)
         email_admin_users(request, mailer)
