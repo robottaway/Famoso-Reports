@@ -27,7 +27,7 @@ You will need to setup synching files from the REACTS export folder:
 
 MAILTO=robottaway@gmail.com
 # m h  dom mon dow   command
-0/5 * * * * rsync -rz -e ssh server2:/cygdrive/d/REACTS/Export/* /var/reports/; find /var/reports -type d -exec chmod 755 {} \;; find /var/reports -type f -exec chmod 644 {} \;;
+*/5 * * * * rsync -rz -e ssh server2:/cygdrive/d/REACTS/Export/* /var/reports/; find /var/reports -type d -exec chmod 755 {} \;; find /var/reports -type f -exec chmod 644 {} \;;
 
 The above is an example of synching the folders and files from the one server 
 to the other and then also making sure file permissions on those files are 
