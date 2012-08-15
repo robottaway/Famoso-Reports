@@ -144,7 +144,6 @@ def remove_groups(request):
     for group in groups:
         loc = group.file_location(request)
         if not os.path.exists(loc):
-            print "Deleting group %s" % group.name
             DBSession.delete(group)
 
 
