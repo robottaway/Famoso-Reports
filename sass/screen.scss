@@ -65,7 +65,6 @@ form#signin {
 }
 
 button {
-  background: #0064CD;
   @include button-button;
   @include button-colors;
   @include button-hover-colors;
@@ -79,6 +78,7 @@ button {
   &:hover {
     color: white;
     border-color: #0064cd #0064cd #003f81;
+    background: #0064CD;
   }
 }
 

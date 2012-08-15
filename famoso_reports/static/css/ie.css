@@ -110,7 +110,6 @@ body.bp button {
 
 /* line 21, ../../../sass/ie.scss */
 button {
-  background-color: #0064CD;
   display: -moz-inline-box;
   -moz-box-orient: vertical;
   display: inline-block;
@@ -136,6 +135,7 @@ button {
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
   border-radius: 5px;
+  background-color: #0064CD;
   color: white;
 }
 /* line 7, ../../../../../../../.rvm/gems/ruby-1.8.7-p334/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */

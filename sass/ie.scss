@@ -19,10 +19,10 @@ body.bp {
 }
 
 button {
-  background-color: #0064CD;
   @include button-button;
   @include button-colors;
   @include border-radius;
+  background-color: #0064CD;
   color: white;
   &:hover {
     color: white;

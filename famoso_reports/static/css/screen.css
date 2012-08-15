@@ -158,7 +158,6 @@ form#signin fieldset ul li button {
 
 /* line 67, ../../../sass/screen.scss */
 button {
-  background: #0064CD;
   display: -moz-inline-box;
   -moz-box-orient: vertical;
   display: inline-block;
@@ -231,10 +230,11 @@ button:active {
   border-color: #72a9d5 #6299c5 #6299c5 #72a9d5;
   color: white;
 }
-/* line 79, ../../../sass/screen.scss */
+/* line 78, ../../../sass/screen.scss */
 button:hover {
   color: white;
   border-color: #0064cd #0064cd #003f81;
+  background: #0064CD;
 }
 
 /* Welcome to Compass.
