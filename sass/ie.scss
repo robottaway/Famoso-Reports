@@ -19,13 +19,8 @@ body.bp {
 }
 
 button {
-  @include button-button;
-  @include button-colors;
-  @include border-radius;
   background-color: #0064CD;
-  color: white;
   &:hover {
-    color: white;
     background-color: #0064CD;
   }
 }
