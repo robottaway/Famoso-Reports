@@ -1,4 +1,4 @@
-Hello ${user.displayName()},
+Hi ${user.displayName()},
 
 You have been added to the Famoso reporting application.
 

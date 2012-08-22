@@ -1,4 +1,4 @@
-Hello ${user.displayName()},
+Hi ${user.displayName()},
 
 Attached is the report '${report.name}'.
 

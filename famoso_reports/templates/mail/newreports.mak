@@ -1,4 +1,4 @@
-Hi there ${user.displayName()},
+Hi ${user.displayName()},
 
 There are new reports for you to view, please sign in at ${request.route_url('home')} to view them.
 

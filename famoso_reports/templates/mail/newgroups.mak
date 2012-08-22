@@ -1,4 +1,4 @@
-Hello ${user.displayName()},
+Hi ${user.displayName()},
 % if gone_groups and new_groups:
 ${self.show_new_groups()} \
 ${self.show_gone_groups()}
