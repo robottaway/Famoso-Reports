@@ -58,10 +58,8 @@ def auth(request):
 
 @view_config(route_name='deauth', renderer=None)
 def deauth(request):
-    try:
+    if 'userid' in request.session:
         del request.session['userid']
-    except AttributeError:
-        pass
     request.session.flash('You have been signed out')
     return HTTPFound(location=request.route_path('home'))
 

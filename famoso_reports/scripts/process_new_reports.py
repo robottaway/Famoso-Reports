@@ -56,6 +56,9 @@ def handleReportFolder(request, reportFolder, report_group):
     global groups_new_reports, user_new_reports, csv_files_missing_pdf
     for root, subFolders, files in os.walk(reportFolder):
         for file in files:
+            if file.startswith('.'):
+                continue
+
             name, extension = os.path.splitext(file)
             
             if not extension:

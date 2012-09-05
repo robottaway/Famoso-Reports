@@ -263,7 +263,7 @@ class Report(Base):
         if not report_type:
             report_type = ReportType(extension)
             DBSession.add(report_type)
-        self.report_types.append(report_type)
+            self.report_types.append(report_type)
         return report_type
 
     def add_or_update_attribute(self, name, value):
