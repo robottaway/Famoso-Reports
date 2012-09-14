@@ -165,7 +165,7 @@ class ReportGroup(Base):
 
     def findReportNamed(self, name):
         for report in self.reports:
-            if report.name == name:
+            if report.name == unicode(name):
                 return report
         return None
 
@@ -263,6 +263,7 @@ class Report(Base):
         if not report_type:
             report_type = ReportType(extension)
             DBSession.add(report_type)
+        if report_type not in self.report_types:
             self.report_types.append(report_type)
         return report_type
 

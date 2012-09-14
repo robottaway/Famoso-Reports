@@ -41,10 +41,16 @@ def usage(argv):
 
 def handleMetadata(request, report_group, report):
     location = report.file_location_for_type(request, '.meta')
+    if not location:
+        return
     fd = open(location, 'r')
     csvr = csv.reader(fd, delimiter=',')
     colnames = csvr.next()
+    if not colnames:
+        return
     values = csvr.next()
+    if not values:
+        return
     d = dict(zip(colnames, values))
     for k, v in d.items():
         report.add_or_update_attribute(k, v)
@@ -65,6 +71,7 @@ def handleReportFolder(request, reportFolder, report_group):
                 continue
 
             report = report_group.findReportNamed(name)
+
             if not report:
                 report = Report()
                 report.name = unicode(name)
@@ -76,8 +83,8 @@ def handleReportFolder(request, reportFolder, report_group):
                 groups_new_reports.setdefault(report_group, []).append(report)
                 for user in report_group.findAllUsers():
                     user_new_reports.setdefault(user, []).append(report)
-            else:
-                report.add_report_type(extension)
+                
+            report.add_report_type(extension)
 
             if extension == '.meta':
                 handleMetadata(request, report_group, report)
