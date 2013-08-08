@@ -189,7 +189,7 @@ def main(argv=sys.argv):
         remove_groups(request)
         remove_reports(request)
         handleRootFolder(request, rootFolder)
-        email_users(request, mailer)
+        #email_users(request, mailer)
         email_admin_users(request, mailer)
         transaction.commit()
     except Exception as e:
