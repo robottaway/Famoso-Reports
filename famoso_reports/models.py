@@ -189,6 +189,8 @@ class ReportGroup(Base):
         combined = {}
         for att in atts:
             combined.setdefault(att.name, []).append(att.value)
+        for attrname in combined.keys():
+            combined[attrname].sort()
         return combined
 
 def ReportGroupFactory(request):

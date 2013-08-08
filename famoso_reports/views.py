@@ -123,7 +123,6 @@ def reportgroup(reportgroup, request):
     reporttype = request.params.get('ReportGroup', None)
     reports = reportgroup.reports
     fatts = reportgroup.filterable_attributes()
-
     if cropyear:
         del fatts['CropYear'] 
         filtered = []
