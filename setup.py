@@ -41,6 +41,7 @@ setup(name='famoso_reports',
       [console_scripts]
       initialize_famoso_reports_db = famoso_reports.scripts.initializedb:main
       process_new_reports = famoso_reports.scripts.process_new_reports:main
+      update_user = famoso_reports.scripts.updateuser:main
       """,
       )
 
