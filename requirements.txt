@@ -27,4 +27,4 @@ pyramid_simpleform==0.6.1
 pyramid_beaker==0.6.1
 pyramid_mailer==0.6
 pyramid_exclog==0.6
-psycopg2==2.5.35
+psycopg2==2.5.3
