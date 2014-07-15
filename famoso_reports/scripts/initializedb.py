@@ -33,11 +33,11 @@ def main(argv=sys.argv):
     Base.metadata.create_all(engine)
 
     with transaction.manager:
-        user = DBSession.query(User).filter_by(username=u'robottaway').first()
+        user = DBSession.query(User).filter_by(username=u'root').first()
         if not user:
-            user = User(username=u'robottaway', password=u'blahblah', 
-                        email=u'robottaway@gmail.com', admin=True,
-                        first_name=u'Rob', last_name=u'Ottaway')
+            user = User(username=u'root', password=u'blahblah', 
+                        email=u'robottaway+famosoroot@gmail.com', admin=True,
+                        first_name=u'root', last_name=u'user')
             DBSession.add(user)
             user = User(username=u'testguy', password=u'password', 
                         email=u'robottaway+testguy@gmail.com', admin=False,

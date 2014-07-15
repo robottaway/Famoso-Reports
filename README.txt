@@ -4,13 +4,23 @@ famoso_reports README
 Getting Started
 ---------------
 
+As a prerequiste you'll need virtualenv and virtualenvwrapper installed.
+
 - cd <directory containing this file>
 
-- $venv/bin/python setup.py develop
+- mkvirtualenv famoso_reports
 
-- $venv/bin/populate_famoso_reports development.ini
+- python setup.py develop
 
-- $venv/bin/pserve development.ini
+- pserve development.ini
+
+- initialize_db development.ini
+
+- update_user development.ini root <new password>
+
+
+As another strategy for setting up the database you could run the numbered sql files in the sql folder.
+
 
 Psycopg
 ---------------------------------------
@@ -19,6 +29,8 @@ OS X macports add pg_conf location such as:
 /opt/local/lib/postgresql91/bin/
 
 To path before pip install to make sure psycopg installs.
+
+With Homebrew install of Postgres no change was needed to install the driver.
 
 
 Cron Jobs
